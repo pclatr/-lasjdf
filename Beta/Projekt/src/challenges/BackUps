@@ -1,0 +1,1327 @@
+public boolean rollSpecificCombination() {
+
+		System.out.println(
+				"Deine Aufgabe ist es mit einer vorgegebenen Versuchsanzahl eine bestimmt Kombination zu würfeln."
+						+ "\nDu wirst eine Belohnung erhalten, wenn du bestehst. Falls nicht bekommst du eine Strafe."
+						+ "\nWenn du zustimmst, wird dir deine Aufgabe präsentiert.");
+
+		if (Input.stringInput().equals("j")) {
+			startChallenge();
+
+			int amountOfChallenges = 9;
+			selectedCombination = (int) (Math.random() * amountOfChallenges);
+
+			// Zum Testen
+			// selectedCombination = 7;
+
+			if (MainController.currentPlayer == 1 && MainController.currentRound != 1) {
+				double selection = Math.random();
+				if (selection >= 0.6) {
+					selectedCombination = 8;
+				} else if (selection >= 0.2) {
+					selectedCombination = 7;
+				}
+			}
+			if (selectedCombination == 0) {
+				System.out.println(
+						"Dein nächster Wurf muss 2 Einsen enthalten. Du erhälst dafür 2 Punkte und 30 Credits.");
+				firstPartPased = true;
+				MainController.tries = 1;
+				labelList[0].setText("Tries: " + String.valueOf(MainController.tries));
+
+				prepareChallenge(1, true, false);
+			}
+
+			else if (selectedCombination == 1) {
+				System.out.println(
+						"Dein nächster Wurf muss 3 Einsen enthalten. Du erhälst dafür 6 Punkte und 80 Credits.");
+
+				prepareChallenge(1, true, false);
+
+			} else if (selectedCombination == 2) {
+				System.out.println(
+						"Dein nächster Wurf muss eine 1 und eine 6 enthalten. Du erhälst dafür 100 Credits und wirst zum Game Leader. Verlierst du, "
+								+ "bekommt der Game Leader 100 Credits, bist du jener, Glück gehabt!");
+
+				// for (int i = 0; i < checkBoxList.length; i++) {
+				// checkBoxList[i].setDisable(true);
+				// }
+				prepareChallenge(1, true, false);
+
+			} else if (selectedCombination == 3) {
+				System.out.println(
+						"Du musst mit deinem nächsten Wurf eine Straße aus 3 Würfeln vorzeigen können. Deine Belohnung "
+								+ "die Summe der gezeigten Würfel sein\n"
+								+ "sowie das 10-fache in Credits. Verlierst du, wirst du das 2-fache des höchsten "
+								+ "gefallenen Würfels an Punkten verlieren.");
+				prepareChallenge(1, true, false);
+
+			} else if (selectedCombination == 4) {
+				System.out.println(
+						"Du musst mit deinen nächsten 2 Würfen eine 4er Straße vorzeigen können, deine Belohnung wird das 20-fache der 3 höchsten Würfel in Credits sein."
+								+ "\nDeine Strafe die Summe in Punkten.");
+				prepareChallenge(2, true, false);
+
+			} else if (selectedCombination == 5) {
+				System.out.println(
+						"Du musst mit deinem nächsten Wurf 3 Würfel nach dem Regelwerk auswählen und halten. Hast du das getan, muss du mit deinem nächsten\n"
+								+ "Wurf die gleiche Kombination von Würfeln noch einmal würfeln. Schaffst du es nicht 3 Würfel zu finden, steigt der letzte Spieler zum Game Leader auf\n"
+								+ "und erhält 300 Credits. Schaffst du es nicht die erste Kombination wieder zu würfeln, steigst du zum Game Leader auf und erhälst 200 Credits.");
+
+				prepareChallenge(1, false, false);
+
+				buttonList[2].setText("Next round.");
+			} else if (selectedCombination == 6) {
+				System.out.println("Zeige mir, dass du mit 6 Würfen eine 3er Straße aus Paaren würfeln kannst. "
+						+ "Deine Belohung ist das Produkt der verbleibenden Versuche (mind. 1) mal der 4-fachen Summe der Würfel in Credits und 5 Punkte.\n"
+						+ "Deine Strafe die Summe aller Würfel mal 5 in Credits.");
+				prepareChallenge(6, true, false);
+
+			} else if (selectedCombination == 7) {
+
+				System.out.println("DAS IST EINE HARD-CHALLENGE.\n"
+						+ "Die Belohnung ist riesig, es gibt sie aber nicht umsonst! Und die Strafe ist hart. Willst du annehmen?");
+
+				if (Input.stringInput().equals("j")) {
+					System.out.println("Alles klar!\n"
+							+ "Du hast nun 5 Versuche um alle Würfel auf den selben Wert zu bringen. "
+							+ "Danach bekommst du wieder 2 Versuche, um die selbe Zahl wieder mindestens 3-mal zu würfeln.\n"
+							+ "1. 3-mal: Du bekommst 400 Credits.\n"
+							+ "2. 4-mal: Du bekommst 10 Punkte und 400 Credits.\n"
+							+ "3. 5/6-mal: Du bekommst das Sechsfache deiner Zahl (aber mind. die 4) ins Quadrat und die Summe als Punkte.");
+
+					prepareChallenge(5, false, true);
+
+				} else {
+					MainController.skipTurn = true;
+					double ifPunishment = Math.random();
+					if (ifPunishment > 0.3) {
+						System.out.println(
+								"Naja, wer hätte es gedacht. 200 Credits weniger und außerdem schenkst du dem nächsten Spieler 10 deiner "
+										+ "Punkte.");
+						MainController.holdCurrentPlayer.setPoints(MainController.holdCurrentPlayer.getPoints() - 10);
+
+						MainController.playerInOrder[MainController.nextPlayer - 1].setPoints(
+								MainController.playerInOrder[MainController.nextPlayer - 1].getPoints() + 10);
+
+						MainController.holdCurrentPlayer
+								.setCredits(MainController.holdCurrentPlayer.getCredits() - 200);
+
+					} else {
+						System.out.println("Noch einmal Glück gehabt.");
+					}
+
+					ranks.generateRanks(MainController.playerInOrder);
+					MainController.rollCounter = 0;
+					resetCounter = true;
+					chooseNextPlayer();
+				}
+			} else if (selectedCombination == 8) {
+				System.out.println("DAS IST EINE HARD-CHALLENGE.\n"
+						+ "Die Belohnung ist riesig, es gibt sie aber nicht umsonst! Und die Strafe ist hart. Willst du annehmen?");
+				if (Input.stringInput().equals("j")) {
+					System.out.println("Du hast nun 4 Würfe Zeit, um eine 6er Straße zu würfel.\n"
+							+ "1. Nach dem ersten Wurf: Du bekommst 1000 Credits und bist auf dem ersten Platz.\n"
+							+ "2. Nach dem zweiten Wurf: Du bekommst 700 Credits und bekommst sämtliche Punkte des vorletzten Platzes gutgeschrieben, ja auch negative Punkte.\n"
+							+ "3. Nach dem dritten oder vierten Wurf: 500 Credits und 10 Punkte, als Trostpreis!");
+
+					prepareChallenge(4, true, false);
+
+				} else {
+					MainController.skipTurn = true;
+					double ifPunishment = Math.random();
+					if (ifPunishment < 0.08) {
+						System.out.println(
+								"Naja, irgendwie ist das jetzt Pech, du verliest 500 Credits und bist auf dem letzten Platz..");
+
+						MainController.holdCurrentPlayer
+								.setCredits(MainController.holdCurrentPlayer.getCredits() - 500);
+
+						MainController.holdCurrentPlayer.setPoints(playerList[playerList.length - 1].getPoints() - 1);
+
+					} else if (ifPunishment > 0.1 && ifPunishment < 0.8) {
+						System.out.println("Hätte schlimmer kommen können, du verlierst 100 Credits und 10 Punkte.");
+
+						MainController.holdCurrentPlayer
+								.setCredits(MainController.holdCurrentPlayer.getCredits() - 100);
+
+						MainController.holdCurrentPlayer.setPoints(MainController.holdCurrentPlayer.getPoints() - 10);
+
+					} else {
+						System.out.println("Noch einmal Glück gehabt.");
+					}
+
+					ranks.generateRanks(MainController.playerInOrder);
+					MainController.rollCounter = 0;
+					resetCounter = true;
+					chooseNextPlayer();
+				}
+
+			}
+			// else if (selectedCombination == 9) {
+			// System.out.println("DAS IST EINE HARD-CHALLENGE.\n"
+			// + "Die Belohnung ist riesig, es gibt sie aber nicht umsonst! Und die Strafe
+			// ist hart. Willst du annehmen?");
+			// if (Input.stringInput().equals("j")) {
+			// }
+			//
+			// MainController.tries = 5;
+			// labelList[0].setText("Tries: " + String.valueOf(MainController.tries));
+			// }
+			return true;
+		} else {
+			MainController.skipTurn = true;
+
+			double ifPunishment = Math.random();
+			if (ifPunishment > 0.3) {
+				MainController.holdCurrentPlayer.setPoints(MainController.holdCurrentPlayer.getPoints() - 3);
+				MainController.holdCurrentPlayer.setCredits(MainController.holdCurrentPlayer.getCredits() - 30);
+				MainController.playerInOrder[Player.amountOfPlayers - 1 - 1]
+						.setCredits(MainController.playerInOrder[Player.amountOfPlayers - 1 - 1].getCredits() + 30);
+
+				ranks.generateRanks(MainController.playerInOrder);
+
+				System.out.println(
+						"Angsthase!! Zur Strafe verlierst du 3 Punkte und musst 30 Credits an den vorletzten Platz zahlen.\nDu bist nun auf dem "
+								+ MainController.holdCurrentPlayer.getRank() + "ten Rang. "
+								+ MainController.playerInOrder[MainController.nextPlayer - 1].getName() + " ist dran.");
+			} else {
+				MainController.playerInOrder[MainController.nextPlayer - 1]
+						.setCredits(MainController.playerInOrder[MainController.nextPlayer - 1].getCredits() + 30);
+
+				ranks.generateRanks(MainController.playerInOrder);
+
+				System.out.println(
+						"Da hat der Angsthase aber noch einmal Glück gehabt. Du wirst nicht bestraft, gibst deinen Zug aber dennoch ab und schenkst"
+								+ " dem nächsten Spieler 30 Credits. "
+								+ MainController.playerInOrder[MainController.nextPlayer - 1].getName() + " ist dran.");
+
+			}
+
+			MainController.rollCounter = 0;
+			MainController.holdLastPlayer = MainController.playerInOrder[MainController.currentPlayer - 1];
+			chooseNextPlayer();
+			MainController.holdCurrentPlayer = playerList[MainController.currentPlayer - 1];
+			MainController.holdNextPlayer = playerList[MainController.nextPlayer - 1];
+			return false;
+		}
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	public void checkChallenge() {
+		challengePased = false;
+
+		if (selectedCombination == 0) {
+			for (int j = 0; j < MainGameMethods.currentDices.length; j++) {
+				if (MainGameMethods.currentDices[j] == 1 && j != 5) {
+					if (MainGameMethods.currentDices[j + 1] == 1) {
+
+						MainController.holdCurrentPlayer.setPoints(MainController.holdCurrentPlayer.getPoints() + 2);
+						MainController.holdCurrentPlayer.setCredits(MainController.holdCurrentPlayer.getCredits() + 30);
+
+						MainController.lastPoints = 2;
+						MainController.lastCredits = 30;
+
+						ranks.generateRanks(MainController.playerInOrder);
+
+						System.out
+								.println("Du hast die Challenge bestanden und erhälst deine Belohnung. Du bist auf dem "
+										+ MainController.holdCurrentPlayer.getRank() + "ten Rang!" + "\n"
+										+ MainController.playerInOrder[MainController.nextPlayer - 1].getName()
+										+ " ist dran.");
+
+						challengePased = true;
+						break;
+					}
+				}
+			}
+			if (!challengePased) {
+
+				if (Integer.parseInt(
+						attributeLabels[MainController.playerInOrder[MainController.currentPlayer - 1].getRank() - 1][7]
+								.getText()) != 0) {
+					System.out.println("Du hast verloren, willst du deinen Skill einsetzten?");
+					if (Input.stringInput().equals("j")) {
+						punishments(0, true);
+					} else {
+						punishments(0, false);
+					}
+				} else {
+					punishments(0, false);
+				}
+			}
+			chooseNextPlayer();
+		} else if (selectedCombination == 1) {
+			for (int j = 0; j < MainGameMethods.currentDices.length; j++) {
+				if (MainGameMethods.currentDices[j] == 1 && j != 4) {
+					if (MainGameMethods.currentDices[j + 1] == 1) {
+						if (MainGameMethods.currentDices[j + 2] == 1) {
+
+							MainController.holdCurrentPlayer
+									.setPoints(MainController.holdCurrentPlayer.getPoints() + 6);
+							MainController.holdCurrentPlayer
+									.setCredits(MainController.holdCurrentPlayer.getCredits() + 80);
+
+							MainController.lastPoints = 6;
+							MainController.lastCredits = 80;
+
+							ranks.generateRanks(MainController.playerInOrder);
+
+							System.out.println(
+									"Du hast die Challenge bestanden und erhälst deine Belohnung. Du bist auf dem "
+											+ MainController.holdCurrentPlayer.getRank() + "ten Rang!" + "\n"
+											+ MainController.playerInOrder[MainController.nextPlayer - 1].getName()
+											+ " ist dran.");
+
+							challengePased = true;
+							break;
+						}
+					}
+				}
+			}
+			if (!challengePased) {
+
+				if (Integer.parseInt(
+						attributeLabels[MainController.playerInOrder[MainController.currentPlayer - 1].getRank() - 1][7]
+								.getText()) != 0) {
+					System.out.println("Du hast verloren, willst du deinen Skill einsetzten?");
+					if (Input.stringInput().equals("j")) {
+						punishments(1, true);
+					} else {
+						punishments(1, false);
+					}
+				} else {
+					punishments(1, false);
+				}
+			}
+
+			chooseNextPlayer();
+
+		} else if (selectedCombination == 2) {
+			for (int i = 0; i < MainGameMethods.currentDices.length; i++) {
+				if (MainGameMethods.currentDices[i] == 1 && i != 5) {
+					i = MainGameMethods.currentDices.length;
+					for (int j = 0; j < MainGameMethods.currentDices.length; j++) {
+						if (MainGameMethods.currentDices[j] == 6) {
+
+							MainController.holdCurrentPlayer
+									.setCredits(MainController.holdCurrentPlayer.getCredits() + 100);
+
+							int hold = 0;
+							for (int k = 0; k < MainController.playerInOrder.length; k++) {
+								if (MainController.playerInOrder[k].getRank() == 1) {
+									hold = k;
+									break;
+								}
+							}
+							MainController.holdCurrentPlayer.setPoints(playerList[hold].getPoints() + 1);
+
+							MainController.lastPoints = MainController.playerInOrder[hold].getPoints() + 1;
+							MainController.lastCredits = 100;
+
+							ranks.generateRanks(playerList);
+							System.out.println(
+									"Du hast die Challenge bestanden und bekommst deine Belohung. Wie versprochen bist du nun auf dem 1ten Rang.\n"
+											+ MainController.playerInOrder[MainController.nextPlayer - 1].getName()
+											+ " ist dran.");
+							challengePased = true;
+							break;
+						}
+					}
+				}
+			}
+			if (!challengePased) {
+
+				playerList[0].setCredits(playerList[0].getCredits() + 100);
+
+				System.out.println("Du hast die Challenge nicht bestanden. " + playerList[0].getName()
+						+ " bekommt nun 100 Credits.\n"
+						+ MainController.playerInOrder[MainController.nextPlayer - 1].getName() + " ist dran.");
+			}
+			chooseNextPlayer();
+
+		} else if (selectedCombination == 3) {
+			for (int i = 0; i < MainGameMethods.currentDices.length - 2; i++) {
+				for (int j = i + 1; j < MainGameMethods.currentDices.length - 1; j++) {
+					if (MainGameMethods.currentDices[i] + 1 == MainGameMethods.currentDices[j]) {
+						for (int k = j + 1; k < MainGameMethods.currentDices.length; k++) {
+							if (MainGameMethods.currentDices[j] + 1 == MainGameMethods.currentDices[k]) {
+								MainController.holdCurrentPlayer.setPoints(
+										MainController.holdCurrentPlayer.getPoints() + MainGameMethods.currentDices[i]
+												+ MainGameMethods.currentDices[j] + MainGameMethods.currentDices[k]);
+
+								MainController.holdCurrentPlayer
+										.setCredits(MainController.holdCurrentPlayer.getCredits()
+												+ (MainGameMethods.currentDices[i] + MainGameMethods.currentDices[j]
+														+ MainGameMethods.currentDices[k]) * 10);
+
+								MainController.lastPoints = MainGameMethods.currentDices[i]
+										+ MainGameMethods.currentDices[j] + MainGameMethods.currentDices[k];
+								MainController.lastCredits = (MainGameMethods.currentDices[i]
+										+ MainGameMethods.currentDices[j] + MainGameMethods.currentDices[k]) * 10;
+
+								ranks.generateRanks(MainController.playerInOrder);
+
+								System.out.println("Du hast es geschaffst und bekommst deine Belohung über "
+										+ (MainGameMethods.currentDices[i]
+												+ MainGameMethods.currentDices[j] + MainGameMethods.currentDices[k])
+										+ " Punkte und "
+										+ (MainGameMethods.currentDices[i] + MainGameMethods.currentDices[j]
+												+ MainGameMethods.currentDices[k]) * 10
+										+ " Credits. Du bist nun auf dem " + MainController.holdCurrentPlayer.getRank()
+										+ "ten Rang.\n"
+										+ MainController.playerInOrder[MainController.nextPlayer - 1].getName()
+										+ " ist dran.");
+
+								i = MainGameMethods.currentDices.length;
+								j = MainGameMethods.currentDices.length;
+
+								challengePased = true;
+
+								break;
+							}
+						}
+
+					}
+				}
+
+			}
+
+			if (!challengePased) {
+
+				if (Integer.parseInt(
+						attributeLabels[MainController.playerInOrder[MainController.currentPlayer - 1].getRank() - 1][7]
+								.getText()) != 0) {
+					System.out.println("Du hast verloren, willst du deinen Skill einsetzten?");
+					if (Input.stringInput().equals("j")) {
+						punishments(3, true);
+
+					} else {
+						punishments(3, false);
+					}
+				} else {
+
+					punishments(3, false);
+				}
+			}
+			chooseNextPlayer();
+		} else if (selectedCombination == 4) {
+			int hold;
+			for (int i = 0; i < MainGameMethods.currentDices.length; i++) {
+				for (int j = MainGameMethods.currentDices.length - 1; j > 0; j--) {
+
+					if (MainGameMethods.currentDices[j - 1] > MainGameMethods.currentDices[j]) {
+						hold = MainGameMethods.currentDices[j];
+						MainGameMethods.currentDices[j] = MainGameMethods.currentDices[j - 1];
+						MainGameMethods.currentDices[j - 1] = hold;
+					}
+
+				}
+			}
+
+			for (int i = 0; i < MainGameMethods.currentDices.length - 3; i++) {
+				for (int j = i + 1; j < MainGameMethods.currentDices.length - 2; j++) {
+					if (MainGameMethods.currentDices[i] + 1 == MainGameMethods.currentDices[j]) {
+						for (int k = j + 1; k < MainGameMethods.currentDices.length - 1; k++) {
+							if (MainGameMethods.currentDices[j] + 1 == MainGameMethods.currentDices[k]) {
+								for (int l = k + 1; l < MainGameMethods.currentDices.length; l++) {
+									if (MainGameMethods.currentDices[k] + 1 == MainGameMethods.currentDices[l]) {
+
+										MainController.holdCurrentPlayer.setCredits(MainController.holdCurrentPlayer
+												.getCredits()
+												+ (MainGameMethods.currentDices[j] + MainGameMethods.currentDices[k]
+														+ MainGameMethods.currentDices[l]) * 20);
+
+										MainController.lastPoints = 0;
+										MainController.lastCredits = (MainGameMethods.currentDices[j]
+												+ MainGameMethods.currentDices[k] + MainGameMethods.currentDices[l])
+												* 20;
+
+										ranks.generateRanks(MainController.playerInOrder);
+
+										System.out.println("Du hast es geschaffst und bekommst deine Belohung über "
+												+ (MainGameMethods.currentDices[j] + MainGameMethods.currentDices[k]
+														+ MainGameMethods.currentDices[l]) * 20
+												+ " Credits.\n"
+												+ MainController.playerInOrder[MainController.nextPlayer - 1].getName()
+												+ " ist dran.");
+
+										i = MainGameMethods.currentDices.length;
+										j = MainGameMethods.currentDices.length;
+										k = MainGameMethods.currentDices.length;
+
+										challengePased = true;
+
+										break;
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+			if (!challengePased) {
+
+				if (Integer.parseInt(
+						attributeLabels[MainController.playerInOrder[MainController.currentPlayer - 1].getRank() - 1][7]
+								.getText()) != 0) {
+					System.out.println("Du hast verloren, willst du deinen Skill einsetzten?");
+					if (Input.stringInput().equals("j")) {
+						punishments(4, true);
+
+					} else {
+						punishments(4, false);
+					}
+				} else {
+					punishments(4, false);
+				}
+
+			}
+			chooseNextPlayer();
+
+		} else if (selectedCombination == 5) {
+
+			int[] dices = new int[3];
+			if (!firstPartPased) {
+				for (int i = 0; i < checkBoxList.length - 2; i++) {
+					if (checkBoxList[i].isSelected()) {
+						for (int j = i + 1; j < checkBoxList.length - 1; j++) {
+							if (checkBoxList[j].isSelected()) {
+								for (int k = j + 1; k < checkBoxList.length; k++) {
+									if (checkBoxList[k].isSelected()) {
+
+										dices[0] = MainGameMethods.currentDices[i];
+										dices[1] = MainGameMethods.currentDices[j];
+										dices[2] = MainGameMethods.currentDices[k];
+
+										int hold;
+										for (int m = 0; m < dices.length; m++) {
+											for (int n = dices.length - 1; n > 0; n--) {
+												if (dices[n - 1] > dices[n]) {
+													hold = dices[n];
+													dices[n] = dices[n - 1];
+													dices[n - 1] = hold;
+												}
+											}
+										}
+
+										if ((dices[0] == dices[1] && dices[1] == dices[2])
+												|| (dices[0] + 1 == dices[1] && dices[1] + 1 == dices[2])) {
+
+											firstDice = dices[0];
+											secondDice = dices[1];
+											thirdDice = dices[2];
+
+											System.out.println(
+													"Du hast den ersten Teil bestanden und solltest nun mit deinem nächsten Wurf keine "
+															+ firstDice + ", " + secondDice + " und " + thirdDice
+															+ " würfeln.");
+
+											i = checkBoxList.length;
+											j = checkBoxList.length;
+
+											MainController.tries = 1;
+
+											labelList[3].setText("Keine " + firstDice + ", " + secondDice + " und "
+													+ thirdDice + " würfeln.");
+											labelList[0].setText("Tries: " + String.valueOf(MainController.tries));
+											for (int n = 0; n < cubeList.length; n++) {
+												cubeList[n].setText("-");
+												checkBoxList[n].setSelected(false);
+											}
+
+											firstPartPased = true;
+											break;
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+				if (!firstPartPased) {
+
+					// int hold = 0;
+					// for (int k = 0; k < MainController.playerInOrder.length; k++) {
+					// if (MainController.playerInOrder[k].getRank() == 1) {
+					// hold = k;
+					// break;
+					// }
+					// }
+
+					playerList[MainController.playerInOrder.length - 1].setPoints(playerList[0].getPoints() + 1);
+					playerList[MainController.playerInOrder.length - 1]
+							.setCredits(playerList[MainController.playerInOrder.length - 1].getCredits() + 300);
+
+					MainController.lastPoints = playerList[0].getPoints() + 1;
+					MainController.lastCredits = 300;
+
+					ranks.generateRanks(MainController.playerInOrder);
+
+					System.out.println(
+							"Du hast den ersten Teil der Challenge nicht geschafft und damit dem letzten Spieler einen Gefallen getan. "
+									+ "Glückwunsch!" + "\n"
+									+ MainController.playerInOrder[MainController.nextPlayer - 1].getName()
+									+ " ist dran.");
+
+					chooseNextPlayer();
+				}
+			} else {
+				int hold;
+				for (int i = 0; i < MainGameMethods.currentDices.length; i++) {
+					if (MainGameMethods.currentDices[i] == firstDice) {
+						hold = i;
+						i = MainGameMethods.currentDices.length;
+						for (int j = 0; j < MainGameMethods.currentDices.length; j++) {
+							if (MainGameMethods.currentDices[j] == secondDice && j != hold) {
+								hold = j;
+								j = MainGameMethods.currentDices.length;
+								for (int k = 0; k < MainGameMethods.currentDices.length; k++) {
+									if (MainGameMethods.currentDices[k] == thirdDice && k != hold) {
+
+										if (Integer.parseInt(
+												attributeLabels[MainController.playerInOrder[MainController.currentPlayer
+														- 1].getRank() - 1][7].getText()) != 0) {
+											System.out.println("Du hast bestanden, willst du deinen Skill einsetzten?");
+											if (Input.stringInput().equals("j")) {
+
+												punishments(5, true);
+											} else {
+												punishments(5, false);
+											}
+
+										} else {
+											punishments(5, false);
+										}
+
+										challengePased = true;
+										chooseNextPlayer();
+										break;
+
+									}
+								}
+							}
+						}
+					}
+				}
+
+				if (!challengePased && firstPartPased) {
+					// int hold = 0;
+					// for (int i = 0; i < MainController.playerInOrder.length; i++) {
+					// if (MainController.playerInOrder[i].getRank() == 1) {
+					// hold = i;
+					// break;
+					// }
+					// }
+					MainController.holdCurrentPlayer.setPoints(playerList[0].getPoints() + 1);
+					MainController.holdCurrentPlayer.setCredits(MainController.holdCurrentPlayer.getCredits() + 200);
+
+					MainController.lastPoints = playerList[0].getPoints() + 1;
+					MainController.lastCredits = 200;
+
+					ranks.generateRanks(playerList);
+
+					System.out.println(
+							"Glückwunsch, du hast deine Challenge nicht bestanden, bist nun Game Leader und bekommst 200 Credits. "
+									+ "\n" + MainController.playerInOrder[MainController.nextPlayer - 1].getName()
+									+ " ist dran.");
+					challengePased = true;
+					chooseNextPlayer();
+				}
+			}
+			//
+		} else if (selectedCombination == 6) {
+
+			int hold;
+			for (int i = 0; i < MainGameMethods.currentDices.length; i++) {
+				for (int j = MainGameMethods.currentDices.length - 1; j > 0; j--) {
+					if (MainGameMethods.currentDices[j - 1] > MainGameMethods.currentDices[j]) {
+						hold = MainGameMethods.currentDices[j];
+						MainGameMethods.currentDices[j] = MainGameMethods.currentDices[j - 1];
+						MainGameMethods.currentDices[j - 1] = hold;
+					}
+
+				}
+			}
+			int sum = 0;
+			if (MainGameMethods.currentDices[0] == MainGameMethods.currentDices[1]) {
+				if (MainGameMethods.currentDices[1] + 1 == MainGameMethods.currentDices[2]) {
+					if (MainGameMethods.currentDices[2] == MainGameMethods.currentDices[3]) {
+						if (MainGameMethods.currentDices[3] + 1 == MainGameMethods.currentDices[4]) {
+							if (MainGameMethods.currentDices[4] == MainGameMethods.currentDices[5]) {
+
+								for (int i = 0; i < MainGameMethods.currentDices.length; i++) {
+									sum += MainGameMethods.currentDices[i];
+								}
+
+								if (MainController.tries == 0) {
+									MainController.tries = 1;
+								}
+								MainController.holdCurrentPlayer
+										.setPoints(MainController.holdCurrentPlayer.getPoints() + 5);
+								MainController.holdCurrentPlayer
+										.setCredits(MainController.holdCurrentPlayer.getCredits()
+												+ (4 * sum * MainController.tries));
+
+								MainController.lastPoints = 5;
+								MainController.lastCredits = (4 * sum * MainController.tries);
+
+								ranks.generateRanks(MainController.playerInOrder);
+
+								System.out.println("Du hast die Challenge bestanden und bekommst 5 Punkte und "
+										+ (4 * sum * MainController.tries) + " Credits.\n" + "Du bist auf dem "
+										+ MainController.holdCurrentPlayer.getRank() + "ten Rang." + "\n"
+										+ MainController.playerInOrder[MainController.nextPlayer - 1].getName()
+										+ " ist dran.");
+								chooseNextPlayer();
+								challengePased = true;
+							}
+						}
+					}
+				}
+			}
+			if (!challengePased) {
+
+				if (Integer.parseInt(
+						attributeLabels[MainController.playerInOrder[MainController.currentPlayer - 1].getRank() - 1][7]
+								.getText()) != 0) {
+					System.out.println("Du hast verloren, willst du deinen Skill einsetzten?");
+					if (Input.stringInput().equals("j")) {
+
+						punishments(6, true);
+					} else {
+						punishments(6, false);
+					}
+				} else {
+					punishments(6, false);
+				}
+
+				//
+
+				chooseNextPlayer();
+			}
+
+		} else if (selectedCombination == 7) {
+
+			if (!firstPartPased) {
+				if (MainGameMethods.currentDices[0] == MainGameMethods.currentDices[1]
+						&& MainGameMethods.currentDices[0] == MainGameMethods.currentDices[2]
+						&& MainGameMethods.currentDices[0] == MainGameMethods.currentDices[3]
+						&& MainGameMethods.currentDices[0] == MainGameMethods.currentDices[4]
+						&& MainGameMethods.currentDices[0] == MainGameMethods.currentDices[5]) {
+					firstPartPased = true;
+					firstDice = MainGameMethods.currentDices[0];
+
+					System.out.println("Der erste Teil wäre geschafft, jetzt bitte noch mind. 3 mal die " + firstDice
+							+ " würfeln!");
+
+					labelList[3].setText("Mind. 3-mal die " + firstDice);
+
+					for (int n = 0; n < cubeList.length; n++) {
+						cubeList[n].setText("-");
+						checkBoxList[n].setSelected(false);
+
+					}
+
+					MainController.tries = 2;
+					labelList[0].setText(String.valueOf("Tries: " + MainController.tries));
+				} else {
+					int randomDiceNumber = (int) (Math.random() * 6 + 1);
+					if (Integer.parseInt(
+							attributeLabels[MainController.playerInOrder[MainController.currentPlayer - 1].getRank()
+									- 1][7].getText()) != 0) {
+						System.out.println("Du hast verloren, willst du deinen Skill einsetzten?");
+						if (Input.stringInput().equals("j")) {
+
+							MainController.holdCurrentPlayer.setCredits(MainController.holdCurrentPlayer.getCredits()
+									+ (MainGameMethods.currentDices[randomDiceNumber] * 100));
+
+							MainController.lastPoints = 0;
+							MainController.lastCredits = MainGameMethods.currentDices[randomDiceNumber] * 100;
+
+							System.out.println("Dank deinen Skill hast du nun "
+									+ (MainGameMethods.currentDices[randomDiceNumber] * 100) + " Credits bekommen.\n"
+									+ MainController.holdCurrentPlayer.getRank() + "ten Rang!" + "\n"
+									+ MainController.playerInOrder[MainController.nextPlayer - 1].getName()
+									+ " ist dran.");
+						} else {
+
+							MainController.holdCurrentPlayer.setCredits(MainController.holdCurrentPlayer.getCredits()
+									- (MainGameMethods.currentDices[randomDiceNumber] * 100));
+
+							System.out.println("Du hast die Challenge nicht bestanden. "
+									+ "\nDu verlierst nun das 100-fache eines zufälligen von dir gewürfelten Würfels, die "
+									+ MainGameMethods.currentDices[randomDiceNumber] + ", an Credtis." + "\n"
+									+ MainController.playerInOrder[MainController.nextPlayer - 1].getName()
+									+ " ist dran.");
+
+						}
+					} else {
+
+						MainController.holdCurrentPlayer.setCredits(MainController.holdCurrentPlayer.getCredits()
+								- (MainGameMethods.currentDices[randomDiceNumber] * 100));
+
+						System.out.println("Du hast die Challenge nicht bestanden. "
+								+ "\nDu verlierst nun das 100-fache eines zufälligen von dir gewürfelten Würfels, die "
+								+ MainGameMethods.currentDices[randomDiceNumber] + ", an Credtis." + "\n"
+								+ MainController.playerInOrder[MainController.nextPlayer - 1].getName() + " ist dran.");
+
+					}
+
+					chooseNextPlayer();
+				}
+
+			} // Second Part
+			else {
+				int hold;
+				for (int i = 0; i < MainGameMethods.currentDices.length; i++) {
+					for (int j = MainGameMethods.currentDices.length - 1; j > 0; j--) {
+						if (MainGameMethods.currentDices[j - 1] > MainGameMethods.currentDices[j]) {
+							hold = MainGameMethods.currentDices[j];
+							MainGameMethods.currentDices[j] = MainGameMethods.currentDices[j - 1];
+							MainGameMethods.currentDices[j - 1] = hold;
+						}
+
+					}
+				}
+				int counter = 0;
+				for (int i = 0; i < MainGameMethods.currentDices.length; i++) {
+					if (MainGameMethods.currentDices[i] == firstDice) {
+						counter++;
+					}
+
+				}
+				if (counter == 0) {
+
+					if (Integer.parseInt(
+							attributeLabels[MainController.playerInOrder[MainController.currentPlayer - 1].getRank()
+									- 1][7].getText()) != 0) {
+						System.out.println("Du hast verloren, willst du deinen Skill einsetzten?");
+						if (Input.stringInput().equals("j")) {
+
+							System.out.println(
+									"Dank deinen Skill hast du nun hast du nun evtl. immer noch mehr als 2 Punkte und 5 Credits.\n"
+											+ MainController.holdCurrentPlayer.getRank() + "ten Rang!" + "\n"
+											+ MainController.playerInOrder[MainController.nextPlayer - 1].getName()
+											+ " ist dran.");
+						} else {
+							MainController.holdCurrentPlayer.setPoints(2);
+							MainController.holdCurrentPlayer.setCredits(5);
+							ranks.generateRanks(MainController.playerInOrder);
+
+							System.out.println("Du hast die " + firstDice + " " + counter
+									+ "-mal gewürfelt. Das nenne ich mal Pech."
+									+ "\nDu hast jetzt nur noch 2 Punkte und 5 Credits, einfach so, weil es witzig ist. Hattest du vorher weniger, Glückwunsch."
+									+ "\nDu bist auf dem " + MainController.holdCurrentPlayer.getRank() + "ten Rang."
+									+ "\n" + MainController.playerInOrder[MainController.nextPlayer - 1].getName()
+									+ " ist dran.");
+						}
+					} else {
+						MainController.holdCurrentPlayer.setPoints(2);
+						MainController.holdCurrentPlayer.setCredits(5);
+						ranks.generateRanks(MainController.playerInOrder);
+
+						System.out.println("Du hast die " + firstDice + " " + counter
+								+ "-mal gewürfelt. Das nenne ich mal Pech."
+								+ "\nDu hast jetzt nur noch 2 Punkte und 5 Credits, einfach so, weil es witzig ist. Hattest du vorher weniger, Glückwunsch."
+								+ "\nDu bist auf dem " + MainController.holdCurrentPlayer.getRank() + "ten Rang." + "\n"
+								+ MainController.playerInOrder[MainController.nextPlayer - 1].getName() + " ist dran.");
+					}
+
+					chooseNextPlayer();
+
+				} else if (counter < 3) {
+
+					if (Integer.parseInt(
+							attributeLabels[MainController.playerInOrder[MainController.currentPlayer - 1].getRank()
+									- 1][7].getText()) != 0) {
+						System.out.println("Du hast verloren, willst du deinen Skill einsetzten?");
+						if (Input.stringInput().equals("j")) {
+
+							punishments(7, true);
+						} else {
+							punishments(7, false);
+						}
+					} else {
+						punishments(7, false);
+					}
+
+					chooseNextPlayer();
+
+				} else if (counter == 3) {
+					MainController.holdCurrentPlayer.setCredits(MainController.holdCurrentPlayer.getCredits() + 400);
+
+					MainController.lastPoints = 0;
+					MainController.lastCredits = 400;
+
+					System.out.println("Du hast die " + firstDice + " 3-mal gewürfelt. Du bekommst 400 Credits." + "\n"
+							+ MainController.playerInOrder[MainController.nextPlayer - 1].getName() + " ist dran.");
+
+					chooseNextPlayer();
+				} else if (counter == 4) {
+					MainController.holdCurrentPlayer.setCredits(MainController.holdCurrentPlayer.getCredits() + 400);
+					MainController.holdCurrentPlayer.setPoints(MainController.holdCurrentPlayer.getPoints() + 10);
+
+					MainController.lastPoints = 10;
+					MainController.lastCredits = 400;
+
+					ranks.generateRanks(playerList);
+
+					System.out.println("Du hast die " + firstDice
+							+ " 4-mal gewürfelt. Du bekommst 400 Credits und 10 Punkte.\nDu bist auf dem "
+							+ MainController.holdCurrentPlayer.getRank() + "ten Rang.\n"
+							+ MainController.playerInOrder[MainController.nextPlayer - 1].getName() + " ist dran.");
+
+					chooseNextPlayer();
+
+				} else {
+					int newFirstDice = firstDice;
+
+					if (firstDice < 4) {
+						newFirstDice = 4;
+					}
+
+					MainController.holdCurrentPlayer.setCredits(
+							MainController.holdCurrentPlayer.getCredits() + (newFirstDice * 6) * (newFirstDice * 6));
+					MainController.holdCurrentPlayer
+							.setPoints(MainController.holdCurrentPlayer.getPoints() + (newFirstDice * counter));
+
+					MainController.lastPoints = (newFirstDice * counter);
+					MainController.lastCredits = (newFirstDice * 6) * (newFirstDice * 6);
+
+					ranks.generateRanks(playerList);
+
+					System.out.println("Glückwunsch! Du hast die " + newFirstDice + " " + counter + "-mal gewürfelt."
+							+ "\nDu bekommst " + (newFirstDice * counter) + " Punkte und "
+							+ (newFirstDice * 6) * (newFirstDice * 6) + " Credits." + "\n" + "\nDu bist auf dem "
+							+ MainController.holdCurrentPlayer.getRank() + "ten Rang.\n"
+							+ MainController.playerInOrder[MainController.nextPlayer - 1].getName() + " ist dran.");
+
+					chooseNextPlayer();
+
+				}
+			}
+		} else if (selectedCombination == 8) {
+
+			int holdDice;
+			for (int i = 0; i < MainGameMethods.currentDices.length; i++) {
+				for (int j = MainGameMethods.currentDices.length - 1; j > 0; j--) {
+					if (MainGameMethods.currentDices[j - 1] > MainGameMethods.currentDices[j]) {
+						holdDice = MainGameMethods.currentDices[j];
+						MainGameMethods.currentDices[j] = MainGameMethods.currentDices[j - 1];
+						MainGameMethods.currentDices[j - 1] = holdDice;
+					}
+
+				}
+			}
+			for (int i = 0; i < MainGameMethods.currentDices.length;) {
+				if (MainGameMethods.currentDices[i] == i + 1) {
+					i++;
+					if (i == MainGameMethods.currentDices.length - 1) {
+						challengePased = true;
+						i++;
+						;
+					}
+				} else {
+					break;
+				}
+			}
+			if (challengePased) {
+				if (MainController.tries == 3) {
+					System.out.println(
+							"Du hast wirklich nach einem Wurf eine 6er Straße geworfen, lucker! Du bekommst nun 1000 Credits und bist Game Leader."
+									+ "\n" + MainController.playerInOrder[MainController.nextPlayer - 1].getName()
+									+ " ist dran.");
+
+					MainController.holdCurrentPlayer.setCredits(MainController.holdCurrentPlayer.getCredits() + 1000);
+
+					MainController.holdCurrentPlayer.setPoints(playerList[0].getPoints() + 1);
+
+					MainController.lastPoints = playerList[0].getPoints() + 1;
+					MainController.lastCredits = 1000;
+
+					ranks.generateRanks(playerList);
+
+				} else if (MainController.tries == 2) {
+					MainController.holdCurrentPlayer.setCredits(MainController.holdCurrentPlayer.getCredits() + 700);
+
+					MainController.holdCurrentPlayer.setPoints(MainController.holdCurrentPlayer.getPoints()
+							+ playerList[playerList.length - 2].getPoints());
+
+					MainController.lastPoints = playerList[playerList.length - 2].getPoints();
+					MainController.lastCredits = 700;
+
+					ranks.generateRanks(playerList);
+
+					System.out.println("Nicht schlecht! Du bekommst deine 700 credits und "
+							+ playerList[MainController.playerInOrder.length - 2].getPoints() + " Punkte."
+							+ "\nDu bist auf dem " + MainController.holdCurrentPlayer.getRank() + "ten Rang." + "\n"
+							+ MainController.playerInOrder[MainController.nextPlayer - 1].getName() + " ist dran.");
+				} else {
+					MainController.holdCurrentPlayer.setCredits(MainController.holdCurrentPlayer.getCredits() + 500);
+
+					MainController.holdCurrentPlayer.setPoints(MainController.holdCurrentPlayer.getPoints() + 10);
+
+					MainController.lastPoints = 10;
+					MainController.lastCredits = 500;
+
+					ranks.generateRanks(playerList);
+
+					System.out.println("Naja, gut gemacht, schätze ich. 500 Credits und 10 Punkte als Trostpreis."
+							+ "\nDu bist auf dem " + MainController.holdCurrentPlayer.getRank() + "ten Rang." + "\n"
+							+ MainController.playerInOrder[MainController.nextPlayer - 1].getName() + " ist dran.");
+				}
+
+			} else {
+
+				if (Integer.parseInt(
+						attributeLabels[MainController.playerInOrder[MainController.currentPlayer - 1].getRank() - 1][7]
+								.getText()) != 0) {
+					System.out.println("Du hast verloren, willst du deinen Skill einsetzten?");
+					if (Input.stringInput().equals("j")) {
+
+						punishments(8, true);
+					} else {
+						punishments(8, false);
+					}
+				} else {
+					punishments(8, false);
+				}
+
+			}
+			chooseNextPlayer();
+
+		}
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	public void punishments(int challengeNumber, boolean usedSkill) {
+		if (challengeNumber == 0) {
+
+			if (usedSkill) {
+				MainController.holdCurrentPlayer.setPoints(MainController.holdCurrentPlayer.getPoints() + 2);
+				MainController.holdCurrentPlayer.setCredits(MainController.holdCurrentPlayer.getCredits() + 30);
+
+				MainController.lastPoints = 2;
+				MainController.lastCredits = 30;
+
+				ranks.generateRanks(MainController.playerInOrder);
+
+				System.out.println("Dank deinen Skill hast du nun "
+						+ "2 Punkte und 30 Credits bekommen, hat sich eher nicht gelohnt." + "\n"
+						+ MainController.holdCurrentPlayer.getRank() + "ten Rang!" + "\n"
+						+ MainController.playerInOrder[MainController.nextPlayer - 1].getName() + " ist dran.");
+			} else {
+				MainController.holdCurrentPlayer.setPoints(MainController.holdCurrentPlayer.getPoints() - 2);
+				MainController.holdCurrentPlayer.setCredits(MainController.holdCurrentPlayer.getCredits() - 30);
+
+				ranks.generateRanks(MainController.playerInOrder);
+
+				System.out.println("Du hast die Challenge nicht bestanden, wirst bestaft und bist jetzt auf dem "
+						+ MainController.holdCurrentPlayer.getRank() + "ten Rang!" + "\n"
+						+ MainController.playerInOrder[MainController.nextPlayer - 1].getName() + " ist dran.");
+			}
+
+		} else if (challengeNumber == 1) {
+
+			if (usedSkill) {
+				MainController.holdCurrentPlayer.setPoints(MainController.holdCurrentPlayer.getPoints() + 6);
+				MainController.holdCurrentPlayer.setCredits(MainController.holdCurrentPlayer.getCredits() + 80);
+
+				MainController.lastPoints = 6;
+				MainController.lastCredits = 80;
+
+				ranks.generateRanks(MainController.playerInOrder);
+
+				System.out.println("Dank deinen Skill hast du nun "
+						+ "6 Punkte und 80 Credits bekommen, Glückwunsch, oder vielleicht auch nicht." + "\n"
+						+ MainController.holdCurrentPlayer.getRank() + "ten Rang!" + "\n"
+						+ MainController.playerInOrder[MainController.nextPlayer - 1].getName() + " ist dran.");
+			} else {
+				MainController.holdCurrentPlayer.setPoints(MainController.holdCurrentPlayer.getPoints() - 6);
+				MainController.holdCurrentPlayer.setCredits(MainController.holdCurrentPlayer.getCredits() - 80);
+
+				ranks.generateRanks(MainController.playerInOrder);
+
+				System.out.println("Du hast die Challenge nicht bestanden, wirst bestaft und bist jetzt auf dem "
+						+ MainController.holdCurrentPlayer.getRank() + "ten Rang!" + "\n"
+						+ MainController.playerInOrder[MainController.nextPlayer - 1].getName() + " ist dran.");
+			}
+
+		} else if (challengeNumber == 2) {
+
+			// if (usedSkill) {
+			//
+			// } else {
+			//
+			// }
+
+		} else if (challengeNumber == 3) {
+
+			if (usedSkill) {
+				MainController.holdCurrentPlayer.setPoints(MainController.holdCurrentPlayer.getPoints()
+						+ MainGameMethods.currentDices[MainGameMethods.currentDices.length - 1] * 2);
+
+				MainController.lastPoints = MainGameMethods.currentDices[MainGameMethods.currentDices.length - 1] * 2;
+				MainController.lastCredits = 0;
+
+				ranks.generateRanks(MainController.playerInOrder);
+
+				System.out.println("Dank deinen Skill hast du nun "
+						+ (MainGameMethods.currentDices[MainGameMethods.currentDices.length - 1] * 2)
+						+ " Punkte bekommen.\n" + MainController.holdCurrentPlayer.getRank() + "ten Rang!" + "\n"
+						+ MainController.playerInOrder[MainController.nextPlayer - 1].getName() + " ist dran.");
+			} else {
+				MainController.holdCurrentPlayer.setPoints(MainController.holdCurrentPlayer.getPoints()
+						- MainGameMethods.currentDices[MainGameMethods.currentDices.length - 1] * 2);
+				ranks.generateRanks(MainController.playerInOrder);
+
+				System.out.println("Du hast verloren und verlierst "
+						+ (MainGameMethods.currentDices[MainGameMethods.currentDices.length - 1] * 2)
+						+ " Punkte. du bist nun auf dem " + MainController.holdCurrentPlayer.getRank() + "ten Rang.\n"
+						+ MainController.playerInOrder[MainController.nextPlayer - 1].getName() + " ist dran.");
+			}
+
+		} else if (challengeNumber == 4) {
+
+			if (usedSkill) {
+				MainController.holdCurrentPlayer.setPoints(MainController.holdCurrentPlayer.getPoints()
+						+ (MainGameMethods.currentDices[MainGameMethods.currentDices.length - 3]
+								+ MainGameMethods.currentDices[MainGameMethods.currentDices.length - 2]
+								+ MainGameMethods.currentDices[MainGameMethods.currentDices.length - 1]));
+
+				MainController.lastPoints = (MainGameMethods.currentDices[MainGameMethods.currentDices.length - 3]
+						+ MainGameMethods.currentDices[MainGameMethods.currentDices.length - 2]
+						+ MainGameMethods.currentDices[MainGameMethods.currentDices.length - 1]);
+				MainController.lastCredits = 0;
+
+				ranks.generateRanks(MainController.playerInOrder);
+
+				System.out.println("Dank deinen Skill hast du nun "
+						+ (MainGameMethods.currentDices[MainGameMethods.currentDices.length - 3]
+								+ MainGameMethods.currentDices[MainGameMethods.currentDices.length - 2]
+								+ MainGameMethods.currentDices[MainGameMethods.currentDices.length - 1])
+						+ " Punkte bekommen.\n" + MainController.holdCurrentPlayer.getRank() + "ten Rang!" + "\n"
+						+ MainController.playerInOrder[MainController.nextPlayer - 1].getName() + " ist dran.");
+			} else {
+
+				MainController.holdCurrentPlayer.setPoints(MainController.holdCurrentPlayer.getPoints()
+						- (MainGameMethods.currentDices[MainGameMethods.currentDices.length - 3]
+								+ MainGameMethods.currentDices[MainGameMethods.currentDices.length - 2]
+								+ MainGameMethods.currentDices[MainGameMethods.currentDices.length - 1]));
+
+				ranks.generateRanks(MainController.playerInOrder);
+
+				System.out.println("Du hast verloren und verlierst "
+						+ (MainGameMethods.currentDices[MainGameMethods.currentDices.length - 3]
+								+ MainGameMethods.currentDices[MainGameMethods.currentDices.length - 2]
+								+ MainGameMethods.currentDices[MainGameMethods.currentDices.length - 1])
+						+ " Punkte. Du bist nun auf dem " + MainController.holdCurrentPlayer.getRank() + "ten Rang.\n"
+						+ MainController.playerInOrder[MainController.nextPlayer - 1].getName() + " ist dran.");
+			}
+
+		} else if (challengeNumber == 5) {
+
+			if (usedSkill) {
+
+				MainController.lastPoints = 0;
+				MainController.lastCredits = 0;
+
+				System.out.println("Dank deinem Skill bist du nun nicht letzter und hast evt. mehr als 30 Credits.\n"
+						+ MainController.playerInOrder[MainController.nextPlayer - 1].getName() + " ist dran.");
+			} else {
+				MainController.holdCurrentPlayer
+						.setPoints(playerList[MainController.playerInOrder.length - 1].getPoints() - 1);
+				MainController.holdCurrentPlayer.setCredits(30);
+
+				ranks.generateRanks(MainController.playerInOrder);
+
+				System.out.println("Du hast deine Challenge bestanden und dir damit keinen Gefallen getan. "
+						+ "\nNun wanderst du auf den letzten Platz und zwar mit 30 Credits." + "\n"
+						+ MainController.playerInOrder[MainController.nextPlayer - 1].getName() + " ist dran.");
+			}
+
+		} else if (challengeNumber == 6) {
+
+			if (usedSkill) {
+				int sum = 0;
+				for (int i = 0; i < MainGameMethods.currentDices.length; i++) {
+					sum += MainGameMethods.currentDices[i];
+				}
+				MainController.holdCurrentPlayer.setCredits(MainController.holdCurrentPlayer.getCredits() + (sum * 5));
+
+				MainController.lastPoints = 0;
+				MainController.lastCredits = (sum * 5);
+
+				System.out.println("Dank deinen Skill hast du nun " + (sum * 5) + " Credits bekommen.\n" + "\n"
+						+ MainController.playerInOrder[MainController.nextPlayer - 1].getName() + " ist dran.");
+			} else {
+
+				int sum = 0;
+				for (int i = 0; i < MainGameMethods.currentDices.length; i++) {
+					sum += MainGameMethods.currentDices[i];
+				}
+				MainController.holdCurrentPlayer.setCredits(MainController.holdCurrentPlayer.getCredits() - (sum * 5));
+
+				System.out.println("Du hast verloren und verlierst damit " + (sum * 5) + " Credits. " + "\n"
+						+ MainController.playerInOrder[MainController.nextPlayer - 1].getName() + " ist dran.");
+			}
+
+		} else if (challengeNumber == 7) {
+
+			if (usedSkill) {
+				if (MainController.currentPlayer == 1) {
+					MainController.holdCurrentPlayer.setCredits(MainController.holdCurrentPlayer.getCredits() + 200);
+
+					MainController.lastPoints = 0;
+					MainController.lastCredits = 200;
+
+					System.out.println("Dank deinen Skill bist du nun nicht der Game Loser und bekommst 200 Credits.\n"
+							+ "\n" + MainController.playerInOrder[MainController.nextPlayer - 1].getName()
+							+ " ist dran.");
+					chooseNextPlayer();
+
+				} else {
+					MainController.holdCurrentPlayer.setCredits(MainController.holdCurrentPlayer.getCredits() + 200);
+					MainController.holdCurrentPlayer.setPoints(MainController.holdCurrentPlayer.getPoints() + 10);
+
+					ranks.generateRanks(MainController.playerInOrder);
+
+					System.out.println("Dank deinen Skill hast du nun 200 Credits und 10 Punkte bekommen.\n"
+							+ MainController.holdCurrentPlayer.getRank() + "ten Rang!" + "\n"
+							+ MainController.playerInOrder[MainController.nextPlayer - 1].getName() + " ist dran.");
+				}
+			} else {
+				if (MainController.currentPlayer == 1) {
+					MainController.holdCurrentPlayer.setCredits(MainController.holdCurrentPlayer.getCredits() - 200);
+					MainController.holdCurrentPlayer
+							.setPoints(playerList[MainController.playerInOrder.length - 1].getPoints() - 1);
+
+					System.out.println(
+							"Du hast den zweiten Teil nicht bestanden und da du der Game Leader bist, wirst du jetzt zum Game Loser"
+									+ "\nund verlierst 200 Credits." + "\n"
+									+ MainController.playerInOrder[MainController.nextPlayer - 1].getName()
+									+ " ist dran.");
+					ranks.generateRanks(playerList);
+					chooseNextPlayer();
+
+				} else {
+					MainController.holdCurrentPlayer.setCredits(MainController.holdCurrentPlayer.getCredits() - 200);
+					MainController.holdCurrentPlayer.setPoints(MainController.holdCurrentPlayer.getPoints() - 10);
+					ranks.generateRanks(playerList);
+
+					System.out.println("Du hast die Challenge nicht bestanden und verlierst 10 Punkte und 200 Credits."
+							+ "\nDu bist auf dem " + MainController.holdCurrentPlayer.getRank() + "ten Rang." + "\n"
+							+ MainController.playerInOrder[MainController.nextPlayer - 1].getName() + " ist dran.");
+				}
+			}
+
+		} else if (challengeNumber == 8) {
+
+			if (usedSkill) {
+				int sum = 0;
+				for (int dice : MainGameMethods.currentDices) {
+					sum += dice;
+				}
+
+				MainController.holdCurrentPlayer.setCredits(MainController.holdCurrentPlayer.getCredits() + sum * 15);
+
+				MainController.lastCredits = sum * 15;
+
+				if (Math.random() <= 0.3) {
+
+					MainController.holdCurrentPlayer
+							.setPoints(MainController.holdCurrentPlayer.getPoints() + playerList[0].getPoints());
+
+					MainController.lastPoints = playerList[0].getPoints();
+
+					ranks.generateRanks(playerList);
+
+					System.out.println("Also, du hast gerade durch deinen Skill " + (sum * 15) + " Credits und "
+							+ playerList[0].getPoints() + " Punkte bekommen." + "\nDu bist nun auf dem "
+							+ MainController.holdCurrentPlayer.getRank() + "ten Rang." + "\n"
+							+ MainController.playerInOrder[MainController.nextPlayer - 1].getName() + " ist dran.");
+				} else {
+					int holder = MainController.holdCurrentPlayer.getPoints();
+					MainController.holdCurrentPlayer.setPoints(MainController.holdCurrentPlayer.getPoints() * 2);
+
+					MainController.lastPoints = MainController.holdCurrentPlayer.getPoints() * 2;
+
+					ranks.generateRanks(playerList);
+
+					System.out.println("Du hast gerade durch deinen Skill " + holder + " Punkte und " + (sum * 15)
+							+ " Credits bekommen." + "\nDu bist nun auf dem "
+							+ MainController.holdCurrentPlayer.getRank() + "ten Rang." + "\n"
+							+ MainController.playerInOrder[MainController.nextPlayer - 1].getName() + " ist dran.");
+				}
+
+			} else {
+				System.out.println(
+						"Naja, was soll ich da sagen. Du hast jetzt eben verloren und, ähm, eigentlich ganz witzig, ich suche mir jetzt aus, ob du die Punkte des "
+								+ MainController.holdCurrentPlayer.getRank() + "st platzierten Spielers verlierst,"
+								+ "\noder die, des 1st platzierten."
+								+ "\nCredits verlierst du jetzt so oder so in Höhe der Summe aller Würfel mal 15.");
+				int sum = 0;
+				for (int dice : MainGameMethods.currentDices) {
+					sum += dice;
+				}
+
+				MainController.holdCurrentPlayer.setCredits(MainController.holdCurrentPlayer.getCredits() - sum * 15);
+				if (Math.random() <= 0.3) {
+
+					MainController.holdCurrentPlayer
+							.setPoints(MainController.holdCurrentPlayer.getPoints() - playerList[0].getPoints());
+
+					ranks.generateRanks(playerList);
+
+					System.out.println("Also, du hast gerade " + (sum * 15) + " Credits und "
+							+ playerList[0].getPoints() + " Punkte verloren." + "\nDu bist nun auf dem "
+							+ MainController.holdCurrentPlayer.getRank() + "ten Rang." + "\n"
+							+ MainController.playerInOrder[MainController.nextPlayer - 1].getName() + " ist dran.");
+				} else {
+					int holder = MainController.holdCurrentPlayer.getPoints();
+					MainController.holdCurrentPlayer.setPoints(0);
+					ranks.generateRanks(playerList);
+
+					System.out.println("Du hast gerade " + holder + " Punkte und " + (sum * 15) + " Credits verloren."
+							+ "\nDu bist nun auf dem " + MainController.holdCurrentPlayer.getRank() + "ten Rang." + "\n"
+							+ MainController.playerInOrder[MainController.nextPlayer - 1].getName() + " ist dran.");
+
+				}
+
+			}
+		}
+	}
+	

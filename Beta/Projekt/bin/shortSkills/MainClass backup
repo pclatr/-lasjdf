@@ -1,0 +1,489 @@
+package main;
+
+public class MainGame {
+	// Checkboxen to hold a dice
+	private boolean checkBox1, checkBox2, checkBox3, checkBox4, checkBox5, checkBox6;
+	private int round;
+
+	public int[] currentDices = new int[6];
+	public boolean[] checkBoxList = new boolean[6];
+
+	public void setCheckBox1(boolean checkBox1) {
+		this.checkBox1 = checkBox1;
+	}
+
+	public void setCheckBox2(boolean checkBox2) {
+		this.checkBox2 = checkBox2;
+	}
+
+	public void setCheckBox3(boolean checkBox3) {
+		this.checkBox3 = checkBox3;
+	}
+
+	public void setCheckBox4(boolean checkBox4) {
+		this.checkBox4 = checkBox4;
+	}
+
+	public void setCheckBox5(boolean checkBox5) {
+		this.checkBox5 = checkBox5;
+	}
+
+	public void setCheckBox6(boolean checkBox6) {
+		this.checkBox6 = checkBox6;
+	}
+
+	public MainGame(boolean test) {
+		if (!test) {
+			int[] generatedDices = new int[6];
+
+			this.currentDices = generatedDices;
+		}
+		// necessary to be false at the beginning
+		this.checkBox1 = false;
+		this.checkBox2 = false;
+		this.checkBox3 = false;
+		this.checkBox4 = false;
+		this.checkBox5 = false;
+		this.checkBox6 = false;
+		this.round = 1;
+	}
+
+	// creation of dices
+	public void generateDices(int tries) {
+		boolean[] checkBoxList = { checkBox1, checkBox2, checkBox3, checkBox4, checkBox5, checkBox6 };
+		// only at the beginning is it not necessary to check the ckeckboxes
+		if (tries == 2) {
+			for (int i = 0; i < currentDices.length; i++) {
+				currentDices[i] = (int) (Math.random() * 5 + 1);
+			}
+		} else {
+			// if you have hold a dice, it mustn't change the value
+			for (int i = 0; i < currentDices.length; i++) {
+				if (!checkBoxList[i]) {
+					currentDices[i] = (int) (Math.random() * 5 + 1);
+				}
+			}
+		}
+		this.checkBoxList = checkBoxList;
+		sortDices(currentDices);
+
+	}
+
+	private void sortDices(int[] unsortDices) {
+
+		for (int i = 0; i < unsortDices.length; i++) {
+			int startCompare = 0;
+			for (int j = 0; j < unsortDices.length - 1; j++) {
+				startCompare++;
+				// the position of the holded dices mustn't change
+				if (checkBoxList[j] == false) {
+					if (unsortDices[j] > unsortDices[startCompare] && checkBoxList[startCompare] == false) {
+						int save = unsortDices[startCompare];
+						unsortDices[startCompare] = unsortDices[j];
+						unsortDices[j] = save;
+					}
+				}
+			}
+		}
+
+	}
+
+	// check up if the combination of the holded dices are allowed
+	public boolean checkHoldDices() {
+
+		int[] dice = new int[6];
+
+		for (int i = 0; i < dice.length; i++) {
+			if (checkBoxList[i] == true) {
+				dice[i] = currentDices[i];
+			}
+		}
+
+		for (int i = 0; i < dice.length; i++) {
+			int startCompare = 0;
+			for (int j = 0; j < dice.length - 1; j++) {
+				startCompare++;
+				if (dice[j] > dice[startCompare]) {
+					int save = dice[startCompare];
+					dice[startCompare] = dice[j];
+					dice[j] = save;
+				}
+			}
+		}
+		// Prüfen, welche chb's gesetzt wurden
+		int i = 0;
+		while (i < dice.length) {
+			if (dice[i] != 0 && i < 5) {
+				break;
+			} else {
+				if (i == 5 && dice[5] != 0) {
+					return false;
+				} else {
+					i++;
+				}
+			}
+		}
+
+		if (i > 5) {
+			return true;
+		} else {
+			// Unterscheidung zwischen Straßen und Paaren
+			if (dice[i] != dice[i + 1]) {
+				// Abgleich auf Straße
+				while (i < dice.length) {
+					if ((dice[i] + 1) == dice[i + 1]) {
+						if (i < 4) {
+							i++;
+						} else {
+							return true;
+						}
+					} else {
+						return false;
+					}
+				}
+			} else {
+
+				// Abgleich auf Paare und Paar-Straßen
+				while (i < dice.length) {
+					if (dice[i] == dice[i + 1]) {
+						if (i == 4) {
+							return true;
+						} else {
+							if (dice[i + 1] == dice[i + 2]) {
+								if (i == 3) {
+									return true;
+								} else {
+									i++;
+								}
+							} else {
+								if (i < 3) {
+									i = i + 2;
+								} else {
+									return false;
+								}
+							}
+						}
+					} else {
+						return false;
+					}
+				}
+			}
+		}
+
+		return false;
+	}
+
+	public int evaluatePoints(int tries) {
+
+		int[] dices = currentDices;
+
+		checkStreet(tries, dices);
+
+		if (dices[0] == dices[1]) {//
+			if (dices[1] == dices[2]) {//
+				if (dices[2] == dices[3]) {//
+					if (dices[3] == dices[4]) {//
+						if (dices[4] == dices[5]) {//
+							// JOptionPane.showMessageDialog(null,
+							// "Alle Würfel sind gleich");
+							if (tries == 2) {
+								return 5;
+							}
+							if (tries == 1) {
+								return 4;
+							} else {
+								return 3;
+							}
+						} else {
+							// JOptionPane.showMessageDialog(null,
+							// "1 2 3 4 5 gleich. 6 einzeln");
+						}
+					} else {
+						if (dices[4] == dices[5]) {//
+							// JOptionPane.showMessageDialog(null,
+							// "1 2 3 4 sind gleich. 5 6 sind gleich");
+							if (tries == 2) {
+								return 3;
+							}
+							if (tries == 1) {
+								return 2;
+							} else {
+								return 1;
+							}
+						} else {
+							// JOptionPane.showMessageDialog(null,
+							// "1 2 3 4 gleich. 5 6 einzeln.");
+						}
+					}
+				} else {
+					if (dices[3] == dices[4]) {//
+						if (dices[4] == dices[5]) {
+							// JOptionPane.showMessageDialog(null,
+							// "1 2 3 sind gleich. 4 5 6 sind gleich");
+							if (tries == 2) {
+								return 3;
+							}
+							if (tries == 1) {
+								return 2;
+							} else {
+								return 1;
+							}
+						} else {
+							// JOptionPane.showMessageDialog(null,
+							// "1 2 3 gleich. 4 5 gleich. 6 einzeln.");
+						}
+					} else {
+						if (dices[4] == dices[5]) {//
+							// JOptionPane
+							// .showMessageDialog(null,
+							// "1 2 3 sind gleich. 4 einzeln. 5 6 sind gleich");
+						} else {
+							// JOptionPane.showMessageDialog(null,
+							// "1 2 3 gleich. 4 5 6 einzeln.");
+						}
+					}
+				}
+			} else {
+				if (dices[2] == dices[3]) {//
+					if (dices[3] == dices[4]) {//
+						if (dices[4] == dices[5]) {//
+							// JOptionPane.showMessageDialog(null,
+							// "1 2 sind gleich. 3 4 5 6 sind gleich");
+							if (tries == 2) {
+								return 3;
+							}
+							if (tries == 1) {
+								return 2;
+							} else {
+								return 1;
+							}
+						} else {
+							// JOptionPane.showMessageDialog(null,
+							// "1 2 gleich. 3 4 5 gleich. 6 einzeln.");
+						}
+					} else {
+						if (dices[4] == dices[5]) {//
+							// JOptionPane
+							// .showMessageDialog(null,
+							// "1 2 sind gleich. 3 4 gleich. 5 6 sind gleich");
+							if (checkStreet(tries, dices) == 5 || checkStreet(tries, dices) == 4
+									|| checkStreet(tries, dices) == 3) {
+								return checkStreet(tries, dices);
+							}
+							if (tries == 2) {
+								return 3;
+							}
+							if (tries == 1) {
+								return 2;
+							} else {
+								return 1;
+							}
+						} else {
+							// JOptionPane.showMessageDialog(null,
+							// "1 2 gleich. 3 4 5 gleich. 6 einzeln.");
+						}
+					}
+				} else {
+					if (dices[3] == dices[4]) {//
+						if (dices[4] == dices[5]) {//
+							// JOptionPane
+							// .showMessageDialog(null,
+							// " 1 2 sind gleich. 3 einzeln. 4 5 6 sind gleich");
+						} else {
+							// JOptionPane.showMessageDialog(null,
+							// "1 2 gleich. 3 6 einzeln. 4 5 gleich.");
+						}
+					} else {
+						if (dices[4] == dices[5]) {//
+							// JOptionPane
+							// .showMessageDialog(null,
+							// " 1 2 sind gleich. 3 4 einzeln. 5 6 sind gleich");
+						} else {
+							// JOptionPane.showMessageDialog(null,
+							// "1 2 gleich. 3 4 5 6 einzeln.");
+							return checkStreet(tries, dices);
+						}
+					}
+				}
+			}
+
+		} else {
+			if (dices[1] == dices[2]) {//
+				if (dices[2] == dices[3]) {//
+					if (dices[3] == dices[4]) {//
+						if (dices[4] == dices[5]) {//
+							// JOptionPane.showMessageDialog(null,
+							// "1 einzeln. 2 3 4 5 6 sind gleich.");
+						} else {
+							// JOptionPane.showMessageDialog(null,
+							// "1 6 einzeln. 2 3 4 5 gleich.");
+						}
+					} else {
+						if (dices[4] == dices[5]) {//
+							// JOptionPane.showMessageDialog(null,
+							// "1 einzeln. 2 3 4 gleich. 5 6 gleich.");
+						} else {
+							// JOptionPane.showMessageDialog(null,
+							// "1 5 6 einzeln. 2 3 4 gleich.");
+						}
+					}
+				} else {
+					if (dices[3] == dices[4]) {//
+						if (dices[4] == dices[5]) {//
+							// JOptionPane.showMessageDialog(null,
+							// "1 2 3 gleich. 4 5 6 gleich.");
+						} else {
+							// JOptionPane.showMessageDialog(null,
+							// "2 3 gleich. 4 5 gleich. 1 6 einzeln.");
+						}
+					} else {
+						if (dices[4] == dices[5]) {//
+							// JOptionPane
+							// .showMessageDialog(null,
+							// "1 einzeln. 2 3 gleich. 4 einzeln. 5 6 gleich.");
+						} else {
+							// JOptionPane.showMessageDialog(null,
+							// "1 4 5 6 einzeln. 2 3 gleich.");
+							return checkStreet(tries, dices);
+						}
+					}
+				}
+			} else {
+				if (dices[2] == dices[3]) {//
+					if (dices[3] == dices[4]) {//
+						if (dices[4] == dices[5]) {//
+							// JOptionPane.showMessageDialog(null,
+							// "1 2 einzeln. 3 4 5 6 gleich.");
+						} else {
+							// JOptionPane.showMessageDialog(null,
+							// "1 2 6 einzeln. 3 4 5 gleich.");
+						}
+					} else {
+						if (dices[4] == dices[5]) {//
+							// JOptionPane.showMessageDialog(null,
+							// "1 2 einzeln. 3 4 gleich. 5 6 gleich.");
+						} else {
+							// JOptionPane.showMessageDialog(null,
+							// "1 2 5 6 einzeln. 3 4 gleich.");
+							return checkStreet(tries, dices);
+						}
+					}
+				} else {
+					if (dices[3] == dices[4]) {//
+						if (dices[4] == dices[5]) {
+							// JOptionPane.showMessageDialog(null,
+							// "1 2 3 einzeln. 4 5 6 gleich");
+						} else {
+							// JOptionPane.showMessageDialog(null,
+							// "1 2 3 6 einzeln. 4 5 gleich.");
+							return checkStreet(tries, dices);
+						}
+					} else {
+						if (dices[4] == dices[5]) {//
+							// JOptionPane.showMessageDialog(null,
+							// "1 2 3 4 einzeln. 5 6 gleich.");
+							return checkStreet(tries, dices);
+						} else {
+							// JOptionPane.showMessageDialog(null,
+							// "1 2 3 4 5 6 einzeln.");
+							if (tries == 2) {
+								return 5;
+							} else if (tries == 1) {
+								return 4;
+							} else {
+								return 3;
+							}
+						}
+					}
+				}
+			}
+		}
+		return 0;
+	}
+
+	private int checkStreet(int tries, int[] sortDices) {
+
+		// int[] sortDices = sortDices(diceList);
+		if ((sortDices[0] == sortDices[1]) && ((sortDices[1] + 1) == sortDices[2]) && (sortDices[2] == sortDices[3])
+				&& ((sortDices[3] + 1) == sortDices[4]) && (sortDices[4] == sortDices[5])) {
+			if (tries == 2) {
+				return 5;
+			}
+			if (tries == 1) {
+				return 4;
+			}
+			if (tries == 0) {
+				return 3;
+			}
+		}
+		if (sortDices[0] == sortDices[1]) {//
+			if ((sortDices[1] + 1) == sortDices[2]) {
+				if ((sortDices[2] + 1) == sortDices[3]) {
+					if ((sortDices[3] + 1) == sortDices[4]) {
+						if ((sortDices[4] + 1) == sortDices[5]) {
+							if (tries == 2) {
+								return 3;
+							}
+						}
+					}
+				}
+			}
+		} else {
+			if ((sortDices[0] + 1) == sortDices[1]) {//
+				if (sortDices[1] == sortDices[2]) {
+					if ((sortDices[2] + 1) == sortDices[3]) {
+						if ((sortDices[3] + 1) == sortDices[4]) {
+							if ((sortDices[4] + 1) == sortDices[5]) {
+								if (tries == 2) {
+									return 3;
+								}
+							}
+						}
+					}
+				}
+				if ((sortDices[0] + 1) == sortDices[1]) {//
+					if ((sortDices[1] + 1) == sortDices[2]) {
+						if (sortDices[2] == sortDices[3]) {
+							if ((sortDices[3] + 1) == sortDices[4]) {
+								if ((sortDices[4] + 1) == sortDices[5]) {
+									if (tries == 2) {
+										return 3;
+									}
+								}
+							}
+						}
+					}
+				}
+				if ((sortDices[0] + 1) == sortDices[1]) {//
+					if ((sortDices[1] + 1) == sortDices[2]) {
+						if ((sortDices[2] + 1) == sortDices[3]) {
+							if (sortDices[3] == sortDices[4]) {
+								if ((sortDices[4] + 1) == sortDices[5]) {
+									if (tries == 2) {
+										return 3;
+									}
+								}
+							}
+						}
+					}
+					if ((sortDices[0] + 1) == sortDices[1]) {//
+						if ((sortDices[1] + 1) == sortDices[2]) {
+							if ((sortDices[2] + 1) == sortDices[3]) {
+								if ((sortDices[3] + 1) == sortDices[4]) {
+									if (sortDices[4] == sortDices[5]) {
+										if (tries == 2) {
+											return 3;
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+
+		return 0;
+	}
+
+}

@@ -1,0 +1,23 @@
+Ideen
+
+1) Jeder gibt verdeckt Zahlen ein, die allen selbst zuaddiert werden,
+ wenn sie in einem bestimmten Gesamtzueinander stehen, welcher erst nach der Ausgabe ermittelt wird.
+ Je nach abweichung bekommt der Rang 1 Spieler weniger bis hin zu, dass alle Punkte dem Rang letzten zugeschrieben werden.
+ Sind sie derweilen jedoch zu nahe aneinander, bekommt der Game leader die gesamten Punkte und einige Credits zus�tzlich. 
+ Auch dieser Abstand wird erst nach der Eingabe der Zahlen ermittelt, sodass Absprachen unm�glich sind.
+ 
+ 
+ 3) Wechselder GAme Leader. Der, der anf�ngt hat eine beliebe Anzahl Versuche und h�lt, irgendwann eine beliebige zul�ssige Kombination von W�rfeln, die anderen m�ssen Versuchen die selbe Kombination mit gleicher W�rfelanzahl zu generieren. 
+  	Der Zug eines Spielers ist erst abgschlossen, wenn er es geschafft hat. �berschreitet er die Anzahl der Versuche, so erh�lt der Spielf�hrer Punkte. Schafft er es innerhalb der Anzahl der Versuche des Game Leaders, so erh�lt er Punkte. Das Spiel ist vorbei,
+  	wenn jeder Spieler einmal dran war.
+ 
+ 
+ 
+ TODO
+ 1)	Rank zu Order �ndern und auch wieder zur�ck.
+ 2) Bei Ende, last roll label.
+ 3) last roll label bei neuer Runde anpassen.
+ - Vor dem Beginn eine Kaufrunde für jeden starten.
+
+ 
+ 

@@ -1,0 +1,323 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="796.0" prefWidth="1071.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="userInterface.MainController">
+	<children>
+      <AnchorPane fx:id="SpecialRightPane" layoutX="97.0" layoutY="382.0" prefHeight="229.0" prefWidth="295.0">
+         <children>
+            <Label fx:id="trueLabelSr1" layoutX="14.0" layoutY="76.0" text="True" visible="false" />
+      		<Label layoutX="136.0" layoutY="74.0" text="Credits" />
+      		<Button fx:id="buysRTTChangeDice" disable="true" layoutX="52.0" layoutY="71.0" mnemonicParsing="false" onAction="#buysRTTChangeDice" text="Buy" />
+      		<Label fx:id="priceOfTwoTimesChangeDice" layoutX="98.0" layoutY="74.0" text="1500" />
+      		<Label layoutX="52.0" layoutY="46.0" text="1) Use Change a Dice 2 times in 1 turn" />
+      		<Label layoutX="117.0" layoutY="14.0" text="Special rights" underline="true">
+      			<font>
+      				<Font size="13.0" />
+      			</font>
+      		</Label>
+            <Label layoutX="53.0" layoutY="108.0" text="2) Use Change a Dice in last role" />
+            <Label fx:id="priceOfLastRoleChangeDice" layoutX="98.0" layoutY="136.0" text="2000" />
+            <Label layoutX="135.0" layoutY="136.0" text="Credits" />
+            <Button fx:id="buyLastRoleChangeDice" disable="true" layoutX="52.0" layoutY="133.0" mnemonicParsing="false" onAction="#buyLastRoleChangeDice" text="Buy" />
+            <Label layoutX="53.0" layoutY="170.0" text="3) Activate point changer" />
+            <Button fx:id="buyPointChanger" disable="true" layoutX="52.0" layoutY="198.0" mnemonicParsing="false" onAction="#buyPointChanger" text="Buy" />
+            <Label fx:id="priceOfSRPointChanger" layoutX="98.0" layoutY="202.0" text="300" />
+            <Label layoutX="128.0" layoutY="202.0" text="Credits" />
+            <Label fx:id="trueLabelSr2" layoutX="14.0" layoutY="138.0" text="True" visible="false" />
+            <Label fx:id="trueLabelSr3" layoutX="14.0" layoutY="202.0" text="True" visible="false" />
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="NormalSkillPane" layoutX="411.0" layoutY="368.0" prefHeight="239.0" prefWidth="266.0">
+         <children>
+      
+      		<Label layoutX="168.0" layoutY="63.0" text="2) Change a Name" />
+      		<Label fx:id="priceOfSkChangeDice" layoutX="56.0" layoutY="92.0" text="100" />
+      		<Label fx:id="priceOfSkChangeName" layoutX="214.0" layoutY="92.0" text="10" />
+      		<Button fx:id="buySkChangeDice" disable="true" layoutX="10.0" layoutY="88.0" mnemonicParsing="false" onAction="#buySkChangeDice" text="Buy" />
+      		<Button fx:id="useSkChangeDice" disable="true" layoutX="10.0" layoutY="118.0" mnemonicParsing="false" onAction="#useSkChangeDice" text="Use" />
+      		<Button fx:id="buySkChangeName" disable="true" layoutX="168.0" layoutY="88.0" mnemonicParsing="false" onAction="#buySkChangeName" text="Buy" />
+      		<Button fx:id="useSkChangeName" disable="true" layoutX="168.0" layoutY="118.0" mnemonicParsing="false" onAction="#useSkChangeName" text="Use" />
+      		<Label layoutX="10.0" layoutY="153.0" text="3) Change Punishment" />
+      		<Label fx:id="priceOfChangePunishment" layoutX="56.0" layoutY="182.0" text="150" />
+      		<Button fx:id="buyChangePunishment" disable="true" layoutX="10.0" layoutY="178.0" mnemonicParsing="false" onAction="#buySkChangeOwnPunishment" text="Buy" />
+      		<Label layoutX="10.0" layoutY="63.0" text="1) Change a Dice" />
+      		<Label layoutX="108.0" layoutY="33.0" text="Normal Skills" underline="true">
+      			<font>
+      				<Font size="13.0" />
+      			</font>
+      		</Label>
+      		<Label layoutX="84.0" layoutY="92.0" text="Credits" />
+      		<Label layoutX="233.0" layoutY="92.0" text="Credits" />
+      		<Label layoutX="84.0" layoutY="182.0" text="Credits" />
+            <Button fx:id="usePointChanger" disable="true" layoutX="168.0" layoutY="181.0" mnemonicParsing="false" onAction="#useSkChangePoints" text="Use" />
+            <Label layoutX="170.0" layoutY="155.0" text="4) Point Changer" />
+            <Label fx:id="priceOfSkNPointChanger" layoutX="214.0" layoutY="188.0" text="10" />
+            <Label layoutX="233.0" layoutY="188.0" text="Points" />
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="OtherTurnSkillPane" layoutX="715.0" layoutY="382.0" prefHeight="229.0" prefWidth="284.0">
+         <children>
+      		<Label layoutX="24.0" layoutY="46.0" text="1) Change award all" />
+      		<Label layoutX="24.0" layoutY="114.0" text="3) Award Game Loser" />
+      		<Button fx:id="buySkChangeAwardGLE" disable="true" layoutX="185.0" layoutY="71.0" mnemonicParsing="false" onAction="#buySkChangeAwardGLE" text="Buy" />
+      		<Button fx:id="buySkChangeAwardAll" disable="true" layoutX="24.0" layoutY="71.0" mnemonicParsing="false" onAction="#buySkChangeAwardAll" text="Buy" />
+      		<Label fx:id="priceOfSkChangeAwardGLE" layoutX="231.0" layoutY="75.0" text="200" />
+      		<Label fx:id="priceOfSkChangeAwardAll" layoutX="70.0" layoutY="75.0" text="250" />
+      		<Label fx:id="priceOfSkChangeAwardGLO" layoutX="70.0" layoutY="141.0" text="150" />
+      		<Button fx:id="buySkChangeAwardGLO" disable="true" layoutX="24.0" layoutY="138.0" mnemonicParsing="false" onAction="#buySkChangeAwardGLO" text="Buy" />
+      		<Button fx:id="useOtherTurnSkill" layoutX="96.0" layoutY="182.0" mnemonicParsing="false" onAction="#useOtherTurnSkill" text="Use such a Skill" />
+      		<Label layoutX="185.0" layoutY="114.0" text="4) Change OP Dice" />
+      		<Label fx:id="priceOfSkChangeOPDice" layoutX="231.0" layoutY="141.0" text="175" />
+      		<Button fx:id="buySkChangeOPDice" disable="true" layoutX="185.0" layoutY="137.0" mnemonicParsing="false" onAction="#buySkChangeOPDice" text="Buy" />
+      		<Label layoutX="113.0" layoutY="14.0" text="Other turn Skills" underline="true">
+      			<font>
+      				<Font size="13.0" />
+      			</font>
+      		</Label>
+      		<Label layoutX="97.0" layoutY="75.0" text="Credits" />
+      		<Label layoutX="258.0" layoutY="75.0" text="Credits" />
+      		<Label layoutX="97.0" layoutY="141.0" text="Credits" />
+      		<Label layoutX="258.0" layoutY="141.0" text="Credits" />
+      		<Label layoutX="166.0" layoutY="46.0" text="2) Award Game Leader" />
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="PlayerSkillTabelPane" layoutX="768.0" layoutY="38.0" prefHeight="325.0" prefWidth="196.0">
+         <children>
+      		<Label layoutX="22.0" layoutY="42.0" text="1">
+      			<font>
+      				<Font size="13.0" />
+      			</font>
+      		</Label>
+      		<Label layoutX="47.0" layoutY="42.0" text="2">
+      			<font>
+      				<Font size="13.0" />
+      			</font>
+      		</Label>
+      		<Label layoutX="72.0" layoutY="42.0" text="3">
+      			<font>
+      				<Font size="13.0" />
+      			</font>
+      		</Label>
+      		<Label layoutX="97.0" layoutY="42.0" text="1">
+      			<font>
+      				<Font size="13.0" />
+      			</font>
+      		</Label>
+      		<Label layoutX="122.0" layoutY="42.0" text="2">
+      			<font>
+      				<Font size="13.0" />
+      			</font>
+      		</Label>
+      		<Label layoutX="147.0" layoutY="42.0" text="3">
+      			<font>
+      				<Font size="13.0" />
+      			</font>
+      		</Label>
+      		<Label layoutX="172.0" layoutY="42.0" text="4">
+      			<font>
+      				<Font size="13.0" />
+      			</font>
+      		</Label>
+      		<Label layoutX="14.0" layoutY="14.0" text="Normal Skills" underline="true">
+      			<font>
+      				<Font size="13.0" />
+      			</font>
+      		</Label>
+      		<Label layoutX="97.0" layoutY="14.0" text="Other turn Skills" underline="true">
+      			<font>
+      				<Font size="13.0" />
+      			</font>
+      		</Label>
+      		<Label fx:id="player1amountOfSkN1" layoutX="22.0" layoutY="62.0" text="0" visible="false" />
+      		<Label fx:id="player1amountOfSkN2" layoutX="47.0" layoutY="62.0" text="0" visible="false" />
+      		<Label fx:id="player1amountOfSkN3" layoutX="72.0" layoutY="62.0" text="0" visible="false" />
+      		<Label fx:id="player1amountOfSkCH1" layoutX="97.0" layoutY="62.0" text="0" visible="false" />
+      		<Label fx:id="player1amountOfSkCH2" layoutX="122.0" layoutY="62.0" text="0" visible="false" />
+      		<Label fx:id="player1amountOfSkCH3" layoutX="147.0" layoutY="62.0" text="0" visible="false" />
+      		<Label fx:id="player1amountOfSkCH4" layoutX="172.0" layoutY="62.0" text="0" visible="false" />
+      		<Label fx:id="player2amountOfSkCH4" layoutX="172.0" layoutY="84.0" text="0" visible="false" />
+      		<Label fx:id="player2amountOfSkCH3" layoutX="147.0" layoutY="84.0" text="0" visible="false" />
+      		<Label fx:id="player2amountOfSkCH2" layoutX="122.0" layoutY="84.0" text="0" visible="false" />
+      		<Label fx:id="player2amountOfSkCH1" layoutX="97.0" layoutY="84.0" text="0" visible="false" />
+      		<Label fx:id="player2amountOfSkN3" layoutX="72.0" layoutY="84.0" text="0" visible="false" />
+      		<Label fx:id="player2amountOfSkN2" layoutX="47.0" layoutY="84.0" text="0" visible="false" />
+      		<Label fx:id="player2amountOfSkN1" layoutX="22.0" layoutY="84.0" text="0" visible="false" />
+      		<Label fx:id="player3amountOfSkCH4" layoutX="172.0" layoutY="106.0" text="0" visible="false" />
+      		<Label fx:id="player3amountOfSkCH3" layoutX="147.0" layoutY="106.0" text="0" visible="false" />
+      		<Label fx:id="player3amountOfSkCH2" layoutX="122.0" layoutY="106.0" text="0" visible="false" />
+      		<Label fx:id="player3amountOfSkCH1" layoutX="97.0" layoutY="106.0" text="0" visible="false" />
+      		<Label fx:id="player3amountOfSkN3" layoutX="72.0" layoutY="106.0" text="0" visible="false" />
+      		<Label fx:id="player3amountOfSkN2" layoutX="47.0" layoutY="106.0" text="0" visible="false" />
+      		<Label fx:id="player3amountOfSkN1" layoutX="22.0" layoutY="106.0" text="0" visible="false" />
+      		<Label fx:id="player4amountOfSkCH4" layoutX="172.0" layoutY="130.0" text="0" visible="false" />
+      		<Label fx:id="player4amountOfSkCH3" layoutX="147.0" layoutY="130.0" text="0" visible="false" />
+      		<Label fx:id="player4amountOfSkCH2" layoutX="122.0" layoutY="130.0" text="0" visible="false" />
+      		<Label fx:id="player4amountOfSkCH1" layoutX="97.0" layoutY="130.0" text="0" visible="false" />
+      		<Label fx:id="player4amountOfSkN3" layoutX="72.0" layoutY="130.0" text="0" visible="false" />
+      		<Label fx:id="player4amountOfSkN2" layoutX="47.0" layoutY="130.0" text="0" visible="false" />
+      		<Label fx:id="player4amountOfSkN1" layoutX="22.0" layoutY="130.0" text="0" visible="false" />
+      		<Label fx:id="player5amountOfSkN1" layoutX="22.0" layoutY="150.0" text="0" visible="false" />
+      		<Label fx:id="player5amountOfSkN2" layoutX="47.0" layoutY="150.0" text="0" visible="false" />
+      		<Label fx:id="player5amountOfSkN3" layoutX="72.0" layoutY="150.0" text="0" visible="false" />
+      		<Label fx:id="player5amountOfSkCH1" layoutX="97.0" layoutY="150.0" text="0" visible="false" />
+      		<Label fx:id="player5amountOfSkCH2" layoutX="122.0" layoutY="150.0" text="0" visible="false" />
+      		<Label fx:id="player5amountOfSkCH3" layoutX="147.0" layoutY="150.0" text="0" visible="false" />
+      		<Label fx:id="player5amountOfSkCH4" layoutX="172.0" layoutY="150.0" text="0" visible="false" />
+      		<Label fx:id="player6amountOfSkCH4" layoutX="172.0" layoutY="172.0" text="0" visible="false" />
+      		<Label fx:id="player6amountOfSkCH3" layoutX="147.0" layoutY="172.0" text="0" visible="false" />
+      		<Label fx:id="player6amountOfSkCH2" layoutX="122.0" layoutY="172.0" text="0" visible="false" />
+      		<Label fx:id="player6amountOfSkCH1" layoutX="97.0" layoutY="172.0" text="0" visible="false" />
+      		<Label fx:id="player6amountOfSkN3" layoutX="72.0" layoutY="172.0" text="0" visible="false" />
+      		<Label fx:id="player6amountOfSkN2" layoutX="47.0" layoutY="172.0" text="0" visible="false" />
+      		<Label fx:id="player6amountOfSkN1" layoutX="22.0" layoutY="172.0" text="0" visible="false" />
+      		<Label fx:id="player7amountOfSkN1" layoutX="22.0" layoutY="194.0" text="0" visible="false" />
+      		<Label fx:id="player7amountOfSkN2" layoutX="47.0" layoutY="194.0" text="0" visible="false" />
+      		<Label fx:id="player7amountOfSkN3" layoutX="72.0" layoutY="194.0" text="0" visible="false" />
+      		<Label fx:id="player7amountOfSkCH1" layoutX="97.0" layoutY="194.0" text="0" visible="false" />
+      		<Label fx:id="player7amountOfSkCH2" layoutX="122.0" layoutY="194.0" text="0" visible="false" />
+      		<Label fx:id="player7amountOfSkCH3" layoutX="147.0" layoutY="194.0" text="0" visible="false" />
+      		<Label fx:id="player7amountOfSkCH4" layoutX="172.0" layoutY="194.0" text="0" visible="false" />
+      		<Label fx:id="player8amountOfSkCH4" layoutX="172.0" layoutY="216.0" text="0" visible="false" />
+      		<Label fx:id="player8amountOfSkCH3" layoutX="147.0" layoutY="216.0" text="0" visible="false" />
+      		<Label fx:id="player8amountOfSkCH2" layoutX="122.0" layoutY="216.0" text="0" visible="false" />
+      		<Label fx:id="player8amountOfSkCH1" layoutX="97.0" layoutY="216.0" text="0" visible="false" />
+      		<Label fx:id="player8amountOfSkN3" layoutX="72.0" layoutY="216.0" text="0" visible="false" />
+      		<Label fx:id="player8amountOfSkN2" layoutX="47.0" layoutY="216.0" text="0" visible="false" />
+      		<Label fx:id="player8amountOfSkN1" layoutX="22.0" layoutY="216.0" text="0" visible="false" />
+      		<Label fx:id="player9amountOfSkN1" layoutX="22.0" layoutY="238.0" text="0" visible="false" />
+      		<Label fx:id="player9amountOfSkN2" layoutX="47.0" layoutY="238.0" text="0" visible="false" />
+      		<Label fx:id="player9amountOfSkN3" layoutX="72.0" layoutY="238.0" text="0" visible="false" />
+      		<Label fx:id="player9amountOfSkCH1" layoutX="97.0" layoutY="238.0" text="0" visible="false" />
+      		<Label fx:id="player9amountOfSkCH2" layoutX="122.0" layoutY="238.0" text="0" visible="false" />
+      		<Label fx:id="player9amountOfSkCH3" layoutX="147.0" layoutY="238.0" text="0" visible="false" />
+      		<Label fx:id="player9amountOfSkCH4" layoutX="172.0" layoutY="238.0" text="0" visible="false" />
+      		<Label fx:id="player10amountOfSkN1" layoutX="22.0" layoutY="260.0" text="0" visible="false" />
+      		<Label fx:id="player10amountOfSkN2" layoutX="47.0" layoutY="260.0" text="0" visible="false" />
+      		<Label fx:id="player10amountOfSkN3" layoutX="72.0" layoutY="260.0" text="0" visible="false" />
+      		<Label fx:id="player10amountOfSkCH1" layoutX="97.0" layoutY="260.0" text="0" visible="false" />
+      		<Label fx:id="player10amountOfSkCH2" layoutX="122.0" layoutY="260.0" text="0" visible="false" />
+      		<Label fx:id="player10amountOfSkCH3" layoutX="147.0" layoutY="260.0" text="0" visible="false" />
+      		<Label fx:id="player10amountOfSkCH4" layoutX="172.0" layoutY="260.0" text="0" visible="false" />
+      		<Label fx:id="player11amountOfSkCH4" layoutX="172.0" layoutY="282.0" text="0" visible="false" />
+      		<Label fx:id="player11amountOfSkCH3" layoutX="147.0" layoutY="282.0" text="0" visible="false" />
+      		<Label fx:id="player11amountOfSkCH2" layoutX="122.0" layoutY="282.0" text="0" visible="false" />
+      		<Label fx:id="player11amountOfSkCH1" layoutX="97.0" layoutY="282.0" text="0" visible="false" />
+      		<Label fx:id="player11amountOfSkN3" layoutX="72.0" layoutY="282.0" text="0" visible="false" />
+      		<Label fx:id="player11amountOfSkN2" layoutX="47.0" layoutY="282.0" text="0" visible="false" />
+      		<Label fx:id="player11amountOfSkN1" layoutX="22.0" layoutY="282.0" text="0" visible="false" />
+      		<Label fx:id="player12amountOfSkN1" layoutX="22.0" layoutY="304.0" text="0" visible="false" />
+      		<Label fx:id="player12amountOfSkN2" layoutX="47.0" layoutY="304.0" text="0" visible="false" />
+      		<Label fx:id="player12amountOfSkN3" layoutX="72.0" layoutY="304.0" text="0" visible="false" />
+      		<Label fx:id="player12amountOfSkCH1" layoutX="97.0" layoutY="304.0" text="0" visible="false" />
+      		<Label fx:id="player12amountOfSkCH2" layoutX="122.0" layoutY="304.0" text="0" visible="false" />
+      		<Label fx:id="player12amountOfSkCH3" layoutX="147.0" layoutY="304.0" text="0" visible="false" />
+      		<Label fx:id="player12amountOfSkCH4" layoutX="172.0" layoutY="304.0" text="0" visible="false" />
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="PlayerTabelPane" layoutX="386.0" layoutY="28.0" prefHeight="368.0" prefWidth="339.0">
+         <children>
+      		<Label fx:id="playerRanksTabel" alignment="CENTER" layoutX="11.0" layoutY="14.0" prefHeight="35.0" prefWidth="315.0" text="Players" textAlignment="CENTER" textFill="#eb0e0e" underline="true" />
+      		<Label fx:id="playerNameTabel" alignment="CENTER" layoutX="11.0" layoutY="52.0" prefHeight="17.0" prefWidth="55.0" text="Name" underline="true" />
+      		<Label fx:id="playerOneName" alignment="CENTER" layoutX="11.0" layoutY="72.0" prefHeight="17.0" prefWidth="55.0" text="Name1" visible="false" />
+      		<Label fx:id="playerTwoName" alignment="CENTER" layoutX="11.0" layoutY="94.0" prefHeight="17.0" prefWidth="55.0" text="Name2" visible="false" />
+      		<Label fx:id="playerThreeName" alignment="CENTER" layoutX="11.0" layoutY="116.0" prefHeight="17.0" prefWidth="55.0" text="Name3" visible="false" />
+      		<Label fx:id="playerFourName" alignment="CENTER" layoutX="11.0" layoutY="138.0" prefHeight="17.0" prefWidth="55.0" text="Name4" visible="false" />
+      		<Label fx:id="playerFiveName" alignment="CENTER" layoutX="11.0" layoutY="160.0" prefHeight="17.0" prefWidth="55.0" text="Name5" visible="false" />
+      		<Label fx:id="playerSixName" alignment="CENTER" layoutX="11.0" layoutY="182.0" prefHeight="17.0" prefWidth="55.0" text="Name6" visible="false" />
+      		<Label fx:id="playerSevenName" alignment="CENTER" layoutX="11.0" layoutY="204.0" prefHeight="17.0" prefWidth="55.0" text="Name7" visible="false" />
+      		<Label fx:id="playerEightName" alignment="CENTER" layoutX="11.0" layoutY="226.0" prefHeight="17.0" prefWidth="55.0" text="Name8" visible="false" />
+      		<Label fx:id="playerNineName" alignment="CENTER" layoutX="11.0" layoutY="248.0" prefHeight="17.0" prefWidth="55.0" text="Name9" visible="false" />
+      		<Label fx:id="playerTenName" alignment="CENTER" layoutX="11.0" layoutY="270.0" prefHeight="17.0" prefWidth="55.0" text="Name10" visible="false" />
+      		<Label fx:id="playerElevenName" alignment="CENTER" layoutX="11.0" layoutY="292.0" prefHeight="17.0" prefWidth="55.0" text="Name11" visible="false" />
+      		<Label fx:id="playerTwelveName" alignment="CENTER" layoutX="11.0" layoutY="314.0" prefHeight="17.0" prefWidth="55.0" text="Name12" visible="false" />
+      		<Label fx:id="playerPointsTabel" alignment="CENTER" layoutX="81.0" layoutY="52.0" text="Points" underline="true" />
+      		<Label fx:id="playerOnePoints" alignment="CENTER" layoutX="81.0" layoutY="72.0" text="Points1" visible="false" />
+      		<Label fx:id="playerTwoPoints" alignment="CENTER" layoutX="81.0" layoutY="94.0" text="Points2" visible="false" />
+      		<Label fx:id="playerThreePoints" alignment="CENTER" layoutX="81.0" layoutY="116.0" text="Points3" visible="false" />
+      		<Label fx:id="playerFourPoints" alignment="CENTER" layoutX="81.0" layoutY="138.0" text="Points4" visible="false" />
+      		<Label fx:id="playerFivePoints" alignment="CENTER" layoutX="81.0" layoutY="160.0" text="Points5" visible="false" />
+      		<Label fx:id="playerSixPoints" alignment="CENTER" layoutX="81.0" layoutY="182.0" text="Points6" visible="false" />
+      		<Label fx:id="playerSevenPoints" alignment="CENTER" layoutX="81.0" layoutY="204.0" text="Points7" visible="false" />
+      		<Label fx:id="playerEightPoints" alignment="CENTER" layoutX="81.0" layoutY="226.0" text="Points8" visible="false" />
+      		<Label fx:id="playerNinePoints" alignment="CENTER" layoutX="81.0" layoutY="248.0" text="Points9" visible="false" />
+      		<Label fx:id="playerTenPoints" alignment="CENTER" layoutX="81.0" layoutY="270.0" text="Points10" visible="false" />
+      		<Label fx:id="playerElevenPoints" alignment="CENTER" layoutX="81.0" layoutY="292.0" text="Points11" visible="false" />
+      		<Label fx:id="playerTwelvePoints" alignment="CENTER" layoutX="81.0" layoutY="314.0" text="Points12" visible="false" />
+      		<Label fx:id="playerCreditsTabel" alignment="CENTER" layoutX="151.0" layoutY="52.0" text="Credits" underline="true" />
+      		<Label fx:id="playerOneCredits" alignment="CENTER" layoutX="151.0" layoutY="72.0" text="Credits1" visible="false" />
+      		<Label fx:id="playerTwoCredits" alignment="CENTER" layoutX="151.0" layoutY="94.0" text="Credits2" visible="false" />
+      		<Label fx:id="playerThreeCredits" alignment="CENTER" layoutX="151.0" layoutY="116.0" text="Credits3" visible="false" />
+      		<Label fx:id="playerFourCredits" alignment="CENTER" layoutX="151.0" layoutY="138.0" text="Credits4" visible="false" />
+      		<Label fx:id="playerFiveCredits" alignment="CENTER" layoutX="151.0" layoutY="160.0" text="Credits5" visible="false" />
+      		<Label fx:id="playerSixCredits" alignment="CENTER" layoutX="151.0" layoutY="182.0" text="Credits6" visible="false" />
+      		<Label fx:id="playerSevenCredits" alignment="CENTER" layoutX="151.0" layoutY="204.0" text="Credits7" visible="false" />
+      		<Label fx:id="playerEightCredits" alignment="CENTER" layoutX="151.0" layoutY="226.0" text="Credits8" visible="false" />
+      		<Label fx:id="playerNineCredits" alignment="CENTER" layoutX="151.0" layoutY="248.0" text="Credits9" visible="false" />
+      		<Label fx:id="playerTenCredits" alignment="CENTER" layoutX="151.0" layoutY="270.0" text="Credits10" visible="false" />
+      		<Label fx:id="playerElevenCredits" alignment="CENTER" layoutX="151.0" layoutY="292.0" text="Credits11" visible="false" />
+      		<Label fx:id="playerTwelveCredits" alignment="CENTER" layoutX="151.0" layoutY="314.0" text="Credits12" visible="false" />
+      		<Label fx:id="playerDrinksTabel" alignment="CENTER" layoutX="221.0" layoutY="52.0" text="Drinks" underline="true" />
+      		<Label fx:id="playerOneDrinks" alignment="CENTER" layoutX="221.0" layoutY="72.0" text="Drinks1" visible="false" />
+      		<Label fx:id="playerTwoDrinks" alignment="CENTER" layoutX="221.0" layoutY="94.0" text="Drinks2" visible="false" />
+      		<Label fx:id="playerThreeDrinks" alignment="CENTER" layoutX="221.0" layoutY="116.0" text="Drinks3" visible="false" />
+      		<Label fx:id="playerFourDrinks" alignment="CENTER" layoutX="221.0" layoutY="138.0" text="Drinks4" visible="false" />
+      		<Label fx:id="playerFiveDrinks" alignment="CENTER" layoutX="221.0" layoutY="160.0" text="Drinks5" visible="false" />
+      		<Label fx:id="playerSixDrinks" alignment="CENTER" layoutX="221.0" layoutY="182.0" text="Drinks6" visible="false" />
+      		<Label fx:id="playerSevenDrinks" alignment="CENTER" layoutX="221.0" layoutY="204.0" text="Drinks7" visible="false" />
+      		<Label fx:id="playerEightDrinks" alignment="CENTER" layoutX="221.0" layoutY="226.0" text="Drinks8" visible="false" />
+      		<Label fx:id="playerNineDrinks" alignment="CENTER" layoutX="221.0" layoutY="248.0" text="Drinks9" visible="false" />
+      		<Label fx:id="playerTenDrinks" alignment="CENTER" layoutX="221.0" layoutY="270.0" text="Drinks10" visible="false" />
+      		<Label fx:id="playerElevenDrinks" alignment="CENTER" layoutX="221.0" layoutY="292.0" text="Drinks11" visible="false" />
+      		<Label fx:id="playerTwelveDrinks" alignment="CENTER" layoutX="221.0" layoutY="314.0" text="Drinks12" visible="false" />
+      		<Label alignment="CENTER" layoutX="291.0" layoutY="52.0" text="Rank" underline="true" />
+      		<Label fx:id="playerOneRank" alignment="CENTER" layoutX="291.0" layoutY="72.0" text="Rank1" visible="false" />
+      		<Label fx:id="playerTwoRank" alignment="CENTER" layoutX="291.0" layoutY="94.0" text="Rank2" visible="false" />
+      		<Label fx:id="playerThreeRank" alignment="CENTER" layoutX="291.0" layoutY="116.0" text="Rank3" visible="false" />
+      		<Label fx:id="playerFourRank" alignment="CENTER" layoutX="291.0" layoutY="138.0" text="Rank4" visible="false" />
+      		<Label fx:id="playerFiveRank" alignment="CENTER" layoutX="291.0" layoutY="160.0" text="Rank5" visible="false" />
+      		<Label fx:id="playerSixRank" alignment="CENTER" layoutX="291.0" layoutY="182.0" text="Rank6" visible="false" />
+      		<Label fx:id="playerSevenRank" alignment="CENTER" layoutX="291.0" layoutY="204.0" text="Rank7" visible="false" />
+      		<Label fx:id="playerEightRank" alignment="CENTER" layoutX="291.0" layoutY="226.0" text="Rank8" visible="false" />
+      		<Label fx:id="playerNineRank" alignment="CENTER" layoutX="291.0" layoutY="248.0" text="Rank9" visible="false" />
+      		<Label fx:id="playerTenRank" alignment="CENTER" layoutX="291.0" layoutY="270.0" text="Rank10" visible="false" />
+      		<Label fx:id="playerElevenRank" alignment="CENTER" layoutX="291.0" layoutY="292.0" text="Rank11" visible="false" />
+      		<Label fx:id="playerTwelveRank" alignment="CENTER" layoutX="291.0" layoutY="314.0" text="Rank12" visible="false" />
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="14.0" layoutY="29.0" prefHeight="368.0" prefWidth="352.0">
+         <children>
+      		<Button fx:id="rollADice" disable="true" layoutX="14.0" layoutY="108.0" mnemonicParsing="false" onAction="#rollDicesButton" text="Roll Dices" />
+      		<Button fx:id="nextPlayerButton" disable="true" layoutX="164.0" layoutY="108.0" mnemonicParsing="false" onAction="#nextPlayerButton" text="Next Player" />
+      		<Button fx:id="methodTest" layoutX="164.0" layoutY="308.0" mnemonicParsing="false" onAction="#methodTest" text="Method Test" />
+      		<Button fx:id="newGameButton" layoutX="14.0" layoutY="308.0" mnemonicParsing="false" onAction="#newGameButton" text="New Game" />
+      		<CheckBox fx:id="checkBox1" layoutX="14.0" layoutY="23.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="0.0" />
+      		<CheckBox fx:id="checkBox2" layoutX="89.0" layoutY="23.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="0.0" />
+      		<CheckBox fx:id="checkBox3" layoutX="164.0" layoutY="23.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="0.0" />
+      		<CheckBox fx:id="checkBox4" layoutX="14.0" layoutY="68.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="0.0" />
+      		<CheckBox fx:id="checkBox5" layoutX="89.0" layoutY="68.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="0.0" />
+      		<CheckBox fx:id="checkBox6" layoutX="164.0" layoutY="68.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="0.0" />
+      		<Label fx:id="cube1" layoutX="39.0" layoutY="30.0" text="Cube 1" />
+      		<Label fx:id="cube2" layoutX="114.0" layoutY="30.0" text="Cube 2" />
+      		<Label fx:id="cube3" layoutX="189.0" layoutY="30.0" text="Cube 3" />
+      		<Label fx:id="cube4" layoutX="39.0" layoutY="75.0" text="Cube 4" />
+      		<Label fx:id="cube5" layoutX="114.0" layoutY="75.0" text="Cube 5" />
+      		<Label fx:id="cube6" layoutX="189.0" layoutY="75.0" text="Cube 6" />
+      		<Label fx:id="triesLabel" layoutX="241.0" layoutY="30.0" text="Tries: 0" />
+      		<Label fx:id="roundsLabel" alignment="CENTER" layoutX="241.0" layoutY="75.0" text="Round: 1" />
+      		<Label fx:id="lastRoll" layoutX="14.0" layoutY="158.0" text="Last Roll: 0 | 0 | 0 | 0 | 0 | 0" />
+      		<Label fx:id="currentPlayerLabel" layoutX="14.0" layoutY="3.0" text="CurrentPlayer's turn. Good Luck!" underline="true" />
+      		<Label layoutX="14.0" layoutY="243.0" text="Last Points:" />
+      		<Label layoutX="14.0" layoutY="268.0" text="Last Credits:" />
+      		<Label fx:id="lastPointsLabel" layoutX="99.0" layoutY="243.0" text="0" />
+      		<Label fx:id="lastCreditsLabel" layoutX="99.0" layoutY="268.0" text="0" />
+            <Label fx:id="luckyCombiLabel" layoutX="14.0" layoutY="188.0" text="Lucky Combi: 0 | 0 | 0 | 0 | 0 | 0" />
+            <Label fx:id="badCombiLabel" layoutX="14.0" layoutY="213.0" text="Bad Combi: 0 | 0 | 0 | 0 | 0 | 0" />
+         </children>
+      </AnchorPane>
+	</children>
+</AnchorPane>
